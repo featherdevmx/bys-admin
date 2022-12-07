@@ -1,7 +1,7 @@
 name: Build and Deploy ByS Admin
 on:
   push:
-    branches: [ develop ]
+    branches: [ feature/login-base ]
   pull_request:
     branches: [ develop ]
 jobs:
