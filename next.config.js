@@ -6,7 +6,8 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    unoptimized: true
+    unoptimized: true,
+    domains: ['https://www.beneficiosysalud.com']
   },
 }
 

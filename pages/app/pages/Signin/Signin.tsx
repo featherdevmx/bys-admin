@@ -1,5 +1,7 @@
 import cx from 'classnames';
 import {NextPage} from 'next';
+import { Button } from '@nextui-org/react';
+
 import styles from './Signin.module.css';
 
 const Signin:NextPage = () => {
@@ -19,11 +21,11 @@ const Signin:NextPage = () => {
           </div>
 
           <div className={cx(styles.checkbox,"mb-3")}>
-            <label>
+            <label> 
               <input type="checkbox" value="remember-me" /> Recuerdame
             </label>
           </div>
-          <button className="w-100 btn btn-lg btn-primary" type="submit">Iniciar Sesión</button>
+          <Button color="gradient" type="submit">Iniciar Sesión</Button>
         </form>
       </main>
     </>
