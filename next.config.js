@@ -7,7 +7,7 @@ const nextConfig = {
   },
   images: {
     unoptimized: true,
-    domains: ['https://www.beneficiosysalud.com']
+    domains: ['https://www.beneficiosysalud.com'],
   },
 }
 

@@ -1,7 +1,7 @@
-import axios from 'axios';
+import axios from 'axios'
 
 const configApi = axios.create({
-    baseURL: 'https://api-dev.beneficiosysalud.com'
-});
+  baseURL: 'https://api-dev.beneficiosysalud.com',
+})
 
-export default configApi;
+export default configApi
