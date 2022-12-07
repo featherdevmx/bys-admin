@@ -1,8 +1,8 @@
-import React, {FC} from 'react';
 import Head from 'next/head';
+import React, {FC} from 'react';
 
-import {LayoutProps} from './types';
 import { NavBar } from '../ui';
+import {LayoutProps} from './types';
 
 export const Layout:FC<LayoutProps> = ({children, title, headTitle}) => {
     return (
@@ -15,7 +15,7 @@ export const Layout:FC<LayoutProps> = ({children, title, headTitle}) => {
             </Head>
             <NavBar title={headTitle}/>
             <main style={{
-                padding: '0px 20px'
+                padding: '30px 30px'
             }}>
                 {children}
             </main>
