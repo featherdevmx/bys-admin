@@ -1,1 +1,1 @@
-export * from './configApi'
+export * from './serviceApi'

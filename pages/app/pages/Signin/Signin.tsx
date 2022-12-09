@@ -2,12 +2,12 @@ import { useMemo, useState } from 'react'
 import { NextPage } from 'next'
 import nextBase64 from 'next-base64';
 import { Button, Text, Input, Spacer, useInput } from '@nextui-org/react'
-import {configApiBasic} from '../../../../api'
+import {servicesManager} from '../../../../api'
 
 const Signin: NextPage = () => {
   const { value, reset, bindings } = useInput('');
-  const [username] = useState('alberto@ideashappy.com');
-  const [password] = useState('secretApp$2');
+  const [username] = useState('');
+  const [password] = useState('');
   const base64Encoded = nextBase64.encode(username+':'+password);
   
 
@@ -15,7 +15,8 @@ const Signin: NextPage = () => {
     console.log('event ', e);
   };
 
-  const handleLogin = async () => {
+  const handleLogin2 = async () => {
+    /*
     console.log('Iniciar Sesión')
     console.log('Username ', username);
     console.log('Password ', password);
@@ -32,8 +33,24 @@ const Signin: NextPage = () => {
     }).catch((error) => {
       console.log('Error en servicio '+error);
     });
-
+    */
   }
+
+  const handleLogin = async () => {
+    console.log('Login');
+    const params = {
+      username: 'abc',
+      password: 'def'
+    }
+
+    const data = {
+      type: 'auth',
+      requestType: 'POST',
+      data: params
+    }
+
+    await servicesManager(data);
+  };
 
   const validateEmail = (value) => {
     return value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i)
