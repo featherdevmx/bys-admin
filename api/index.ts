@@ -1,1 +1,1 @@
-export { default as configApi } from './configApi'
+export * from './configApi'

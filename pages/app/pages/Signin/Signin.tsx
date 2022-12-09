@@ -1,23 +1,38 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { NextPage } from 'next'
+import nextBase64 from 'next-base64';
 import { Button, Text, Input, Spacer, useInput } from '@nextui-org/react'
-import { configApi } from '../../../../api'
+import {configApiBasic} from '../../../../api'
 
 const Signin: NextPage = () => {
-  const { value, reset, bindings } = useInput('')
+  const { value, reset, bindings } = useInput('');
+  const [username] = useState('alberto@ideashappy.com');
+  const [password] = useState('secretApp$2');
+  const base64Encoded = nextBase64.encode(username+':'+password);
+  
+
+  const handleInput = (e: any) => {
+    console.log('event ', e);
+  };
 
   const handleLogin = async () => {
     console.log('Iniciar Sesión')
+    console.log('Username ', username);
+    console.log('Password ', password);
+    console.log('Password 64 ', base64Encoded);
 
-    await configApi
-      .post('/auth/')
-      .then((response) => {
-        //
-        console.log('Response ' + response)
-      })
-      .catch((error) => {
-        console.log('Error: ' + error)
-      })
+    
+    const formdata = new FormData();
+    formdata.append('grant_type', 'password');
+    formdata.append('username', username);
+    formdata.append('password', password);
+
+    await configApiBasic.post('/oauth/token', formdata).then((response) => {
+      console.log('Service '+JSON.stringify(response));
+    }).catch((error) => {
+      console.log('Error en servicio '+error);
+    });
+
   }
 
   const validateEmail = (value) => {
@@ -46,6 +61,7 @@ const Signin: NextPage = () => {
         <Spacer y={2.5} />
         <div className="form-input">
           <Input
+            required
             {...bindings}
             clearable
             shadow={false}
@@ -59,17 +75,20 @@ const Signin: NextPage = () => {
             label="Email"
             placeholder="Correo Electrónico"
             size="lg"
+            value={username}
+            onChange={handleInput}
           />
         </div>
         <Spacer y={3.5} />
         <div className="form-input">
           <Input
+            required
             size="lg"
             bordered
             label="Contraseña"
-            labelPlaceholder="Contraseña"
-            initialValue=""
             type="password"
+            value={password}
+            onChange={handleInput}
           />
         </div>
         <Spacer y={3.5} />
