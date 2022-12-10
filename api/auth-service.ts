@@ -1,5 +1,6 @@
 import { servicesPOST, handleErrorResponse } from './serviceApi';
 import {ApiPostData} from './types';
+
 export const login = async (data:ApiPostData) => {
     try {
         const endpoint = `/auth`;

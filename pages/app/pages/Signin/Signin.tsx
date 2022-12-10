@@ -1,59 +1,54 @@
-import { useMemo, useState } from 'react'
-import { NextPage } from 'next'
-import nextBase64 from 'next-base64';
-import { Button, Text, Input, Spacer, useInput } from '@nextui-org/react'
-import {servicesManager} from '../../../../api'
+import { NextPage } from 'next';
+import { useFormik } from 'formik';
+import { useMemo, useState } from 'react';
+import { Button, Text, Input, Spacer, useInput, Loading } from '@nextui-org/react';
+import {login} from '../../../../api';
+import { ApiPostData } from '../../../../api/types';
 
 const Signin: NextPage = () => {
   const { value, reset, bindings } = useInput('');
-  const [username] = useState('');
-  const [password] = useState('');
-  const base64Encoded = nextBase64.encode(username+':'+password);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const formik = useFormik({
+    initialValues: {email: '', password: ''},
+    onSubmit: () => {
+      setLoading(true);
+      handleLogin();
+      formik.resetForm();
+    }
+  });
   
 
-  const handleInput = (e: any) => {
-    console.log('event ', e);
-  };
-
-  const handleLogin2 = async () => {
-    /*
-    console.log('Iniciar Sesión')
-    console.log('Username ', username);
-    console.log('Password ', password);
-    console.log('Password 64 ', base64Encoded);
-
-    
-    const formdata = new FormData();
-    formdata.append('grant_type', 'password');
-    formdata.append('username', username);
-    formdata.append('password', password);
-
-    await configApiBasic.post('/oauth/token', formdata).then((response) => {
-      console.log('Service '+JSON.stringify(response));
-    }).catch((error) => {
-      console.log('Error en servicio '+error);
-    });
-    */
-  }
-
   const handleLogin = async () => {
-    console.log('*** Login');
-    const params = {
-      username: '',
-      password: ''
-    }
 
     const data = {
-      type: 'auth',
-      requestType: 'POST',
-      data: params,
-      route: '/auth'
+      email: formik.values.email,
+      password: formik.values.password
     }
 
-    await servicesManager(data);
+    const loginResponse = await login(data as unknown as ApiPostData );
+    if (!loginResponse.access_token) {
+      if (
+          loginResponse.message.includes('E_PASSWORD_MISMATCH') ||
+          loginResponse.message.includes('E_USER_NOT_FOUND')
+      ) {
+          console.log('Incorrect password');
+      } else {
+          console.log('Error en request');
+      }
+
+      return;
+    }
+
+    setTimeout(() => {
+      setLoading(false);
+    }, 400);
+
+    const { token } = loginResponse.access_token;
+    console.log('Hay token ', token);
   };
 
-  const validateEmail = (value) => {
+  const validateEmail = (value:any) => {
     return value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i)
   }
 
@@ -72,7 +67,7 @@ const Signin: NextPage = () => {
 
   return (
     <div className={'form_signin'}>
-      <form>
+      <form onSubmit={formik.handleSubmit}>
         <Text color="white" h2>
           Iniciar Sesión
         </Text>
@@ -85,16 +80,17 @@ const Signin: NextPage = () => {
             shadow={false}
             bordered
             onClearClick={reset}
-            status={helper.color}
-            color={helper.color}
-            helperColor={helper.color}
+            status={helper.color as any}
+            color={helper.color as any}
+            helperColor={helper.color as any}
             helperText={helper.text}
             type="email"
             label="Email"
+            name="email"
             placeholder="Correo Electrónico"
             size="lg"
-            value={username}
-            onChange={handleInput}
+            value={formik.values.email}
+            onChange={(event) => formik.handleChange(event)}
           />
         </div>
         <Spacer y={3.5} />
@@ -105,15 +101,21 @@ const Signin: NextPage = () => {
             bordered
             label="Contraseña"
             type="password"
-            value={password}
-            onChange={handleInput}
+            name="password"
+            value={formik.values.password}
+            onChange={(event) => formik.handleChange(event)}
           />
         </div>
         <Spacer y={3.5} />
         <div className="form-input">
-          <Button size="lg" color="gradient" onPress={handleLogin}>
-            Iniciar Sesión
-          </Button>
+          {!loading && (
+            <Button type="submit" size="lg" color="gradient">
+              Iniciar Sesión
+            </Button>
+          )}
+          {loading && (
+            <Loading />
+          )}
         </div>
       </form>
     </div>
