@@ -1,69 +1,74 @@
-import axios, { AxiosResponse } from 'axios';
-import nextBase64 from 'next-base64';
-export const API_USERNAME = '';
-export const API_PASSWORD = '';
+const API_URL = process.env.REACT_APP_BASE_URL;
+import {ApiPostProps} from './types';
 
-const base64Encoded = nextBase64.encode(API_USERNAME+':'+API_PASSWORD);
-
-const configApi = axios.create({
-  baseURL: process.env.REACT_APP_BASE_URL,
-  withCredentials: true,
-});
- 
-export interface ConfigAPIInput {
-  type?: string;
-  requestType: string;
-  data: object;
-  route: string;
-}
-
-export interface ConfigAPIResponse {
-  then: AxiosResponse,
-  catch: AxiosResponse
-}
-
-export interface ApiPostProps {
-  route: string,
-  data: object
-}
-
-const servicesPOST = async (params:ApiPostProps) => {
-  
-  const {route, data} = params;
-  console.log('otro 1 ', process.env.REACT_APP_BASE_URL);
-
-  console.log('** petición POST');
-  console.log('Data para post ', data);
-  console.log('ira hacia ', route);
-  
-  let response;
-  await configApi.post(route, params).then((response) => {
-    console.log('Service '+JSON.stringify(response));
-  }).catch((error) => {
-    console.log('Error en servicio '+error);
-  });
-  return response;
+const defaultHeaders = {
+  'content-type': 'application/json',
+  accept: 'application/json',
+  'Access-Control-Allow-Origin': '*'
 };
 
-export const servicesManager = async ({type, requestType, data, route}:ConfigAPIInput) => {
-  
-  if (type === 'auth') {
-    // Integración API v1
-    // configApi.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
-    // configApi.defaults.headers.common['Authorization'] = 'Basic ' + base64Encoded;
-    configApi.defaults.headers.common['Content-Type'] = 'application/json';
-    configApi.defaults.headers.common['Accept'] = 'json';
-    
-    
-    switch (requestType) {
-      case 'POST':
-        servicesPOST({route, data});
-        break;
-    }   
+const defaultMultipartHeaders = {};
+
+function headers(isMultipartRequest = false, isLoginRequest = false) {
+  let jwt = null;
+  let locale = 'es';
+
+  try {
+      jwt = localStorage ? localStorage.getItem('bysAuthToken') : null;
+  } catch (error) {
+      jwt = null;
   }
 
-  //console.log('Type ', type);
-  //console.log('Request ', requestType);
-  return;
+  if (jwt === null || isLoginRequest) {
+      if (isMultipartRequest) {
+          return defaultMultipartHeaders;
+      }
 
+      return { ...defaultHeaders, 'Accept-Language': locale };
+  }
+
+  if (jwt !== null && isMultipartRequest) {
+      return { ...defaultMultipartHeaders, authorization: `Bearer ${jwt}` };
+  }
+
+  return { ...defaultHeaders, authorization: `Bearer ${jwt}`, 'Accept-Language': locale };
+}
+
+export const servicesPOST = async (params:ApiPostProps) => {
+  
+  const {route, data, isLoginRequest} = params;
+
+  console.log(':: POST Request');
+  console.log(':: Data Sended -> ', data);
+  console.log(':: Go To Route -> ', route);
+  console.log(':: IsLoginRequest -> ', isLoginRequest);
+  
+  const options:any = {
+    cache: 'no-cache',
+    headers: headers(false, isLoginRequest),
+    method: 'POST',
+    mode: 'cors',
+    body: JSON.stringify(data)
+  };
+
+  const url = API_URL+route;
+  
+  const response = await fetch(url, options);
+  return response;
+
+};
+
+export const handleErrorResponse = (errorResponse: any) => {
+  const error = JSON.parse(errorResponse);
+
+  if (Array.isArray(error)) {
+      return {
+          error: true,
+          message: error[0].message ? error[0].message : 'Ha ocurrido un error al intentar realizar la operación.'
+      };
+  }
+  return {
+      error: true,
+      message: error.message ? error.message : 'Ha ocurrido un error al intentar realizar la operación.'
+  };
 };
