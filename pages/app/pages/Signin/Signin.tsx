@@ -37,16 +37,17 @@ const Signin: NextPage = () => {
   }
 
   const handleLogin = async () => {
-    console.log('Login');
+    console.log('*** Login');
     const params = {
-      username: 'abc',
-      password: 'def'
+      username: '',
+      password: ''
     }
 
     const data = {
       type: 'auth',
       requestType: 'POST',
-      data: params
+      data: params,
+      route: '/auth'
     }
 
     await servicesManager(data);
