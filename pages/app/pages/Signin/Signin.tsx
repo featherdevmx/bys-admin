@@ -1,6 +1,7 @@
 import { NextPage } from 'next';
 import { useFormik } from 'formik';
 import { useMemo, useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import { Button, Text, Input, Spacer, useInput, Loading } from '@nextui-org/react';
 import {login} from '../../../../api';
 import { ApiPostData } from '../../../../api/types';
@@ -12,8 +13,8 @@ const Signin: NextPage = () => {
   const formik = useFormik({
     initialValues: {email: '', password: ''},
     onSubmit: () => {
-      setLoading(true);
       handleLogin();
+      setLoading(true);
       formik.resetForm();
     }
   });
@@ -32,20 +33,16 @@ const Signin: NextPage = () => {
           loginResponse.message.includes('E_PASSWORD_MISMATCH') ||
           loginResponse.message.includes('E_USER_NOT_FOUND')
       ) {
-          console.log('Incorrect password');
+          toast.error('Usuario o Contraseña incorrecta');
       } else {
-          console.log('Error en request');
+          toast.error('Error en petición, intente más tarde');
       }
-
       return;
     }
-
-    setTimeout(() => {
-      setLoading(false);
-    }, 400);
-
+    setLoading(false);
     const { token } = loginResponse.access_token;
     console.log('Hay token ', token);
+    toast.success('Bienvenido!')
   };
 
   const validateEmail = (value:any) => {
@@ -67,11 +64,15 @@ const Signin: NextPage = () => {
 
   return (
     <div className={'form_signin'}>
+      <Toaster
+        position="top-center"
+        reverseOrder={true}
+      />
       <form onSubmit={formik.handleSubmit}>
-        <Text color="white" h2>
+        <Text color="black" h2>
           Iniciar Sesión
         </Text>
-        <Spacer y={2.5} />
+        <Spacer y={1.5} />
         <div className="form-input">
           <Input
             required
@@ -93,7 +94,7 @@ const Signin: NextPage = () => {
             onChange={(event) => formik.handleChange(event)}
           />
         </div>
-        <Spacer y={3.5} />
+        <Spacer y={2.5} />
         <div className="form-input">
           <Input
             required
@@ -106,7 +107,7 @@ const Signin: NextPage = () => {
             onChange={(event) => formik.handleChange(event)}
           />
         </div>
-        <Spacer y={3.5} />
+        <Spacer y={2.5} />
         <div className="form-input">
           {!loading && (
             <Button type="submit" size="lg" color="gradient">
@@ -122,4 +123,4 @@ const Signin: NextPage = () => {
   )
 }
 
-export default Signin
+export default Signin;
