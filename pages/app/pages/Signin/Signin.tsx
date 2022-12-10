@@ -37,6 +37,7 @@ const Signin: NextPage = () => {
       } else {
           toast.error('Error en petición, intente más tarde');
       }
+      setLoading(false);
       return;
     }
     setLoading(false);
@@ -109,12 +110,12 @@ const Signin: NextPage = () => {
         </div>
         <Spacer y={2.5} />
         <div className="form-input">
-          {!loading && (
+          {loading===false && (
             <Button type="submit" size="lg" color="gradient">
               Iniciar Sesión
             </Button>
           )}
-          {loading && (
+          {loading === true && (
             <Loading />
           )}
         </div>
