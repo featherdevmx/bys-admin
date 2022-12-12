@@ -24,7 +24,12 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.4.0",
-    "typescript": "*"
+    "typescript": "^4.9.4",
+    "@mui/material": "^5.10.17",
+    "@mui/icons-material": "^5.10.16",
+    "@mui/x-data-grid": "^5.17.14",
+    "@emotion/styled": "^11.10.5",
+    "@emotion/react": "^11.10.5"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.0.0",

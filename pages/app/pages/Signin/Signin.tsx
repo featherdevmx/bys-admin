@@ -1,13 +1,17 @@
 import { NextPage } from 'next';
+import NextLink from 'next/link';
 import { useFormik } from 'formik';
+import { Chip } from '@mui/material';
 import { useMemo, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
-import { Button, Text, Input, Spacer, useInput, Loading } from '@nextui-org/react';
-import {login} from '../../../../api';
+import { ErrorOutline } from '@mui/icons-material';
+import { Button, Input, Loading, Spacer, Text, useInput } from '@nextui-org/react';
+import { login } from '../../../../api';
 import { ApiPostData } from '../../../../api/types';
 
 const Signin: NextPage = () => {
   const { value, reset, bindings } = useInput('');
+  const [error, setError] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
   const formik = useFormik({
@@ -21,6 +25,7 @@ const Signin: NextPage = () => {
   
 
   const handleLogin = async () => {
+    setError(false);
 
     const data = {
       email: formik.values.email,
@@ -37,6 +42,7 @@ const Signin: NextPage = () => {
       } else {
           toast.error('Error en petición, intente más tarde');
       }
+      setError(true);
       setLoading(false);
       return;
     }
@@ -73,6 +79,14 @@ const Signin: NextPage = () => {
         <Text color="black" h2>
           Iniciar Sesión
         </Text>
+        {error && (
+        <Chip
+          label="No reconocemos ese usuario/contraseña"
+          color="error"
+          icon={<ErrorOutline />}
+          className="fadein"
+        />
+        )}
         <Spacer y={1.5} />
         <div className="form-input">
           <Input
