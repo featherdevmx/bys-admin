@@ -60,12 +60,9 @@ export const SigninContainer: FC = () => {
     }
     setLoading(false);
     const { token } = loginResponse.access_token;
-    console.log('Hay token ', token);
     toast.success('Bienvenido a ByS!');
     localStorage.setItem('bysAuthToken', token);
-    setTimeout(() => {
-      router.push('/app/userLogged/Start');
-    }, 500);
+    router.push('/app/userLogged/Start');
   };
 
   const validateEmail = (value:any) => {
