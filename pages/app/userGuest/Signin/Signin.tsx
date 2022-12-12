@@ -1,15 +1,18 @@
 import { NextPage } from 'next';
-import NextLink from 'next/link';
+import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import { Chip } from '@mui/material';
 import { useMemo, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { ErrorOutline } from '@mui/icons-material';
 import { Button, Input, Loading, Spacer, Text, useInput } from '@nextui-org/react';
+
+import {Row} from './Signin.styled';
 import { login } from '../../../../api';
 import { ApiPostData } from '../../../../api/types';
 
 const Signin: NextPage = () => {
+  const router = useRouter();
   const { value, reset, bindings } = useInput('');
   const [error, setError] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -49,7 +52,10 @@ const Signin: NextPage = () => {
     setLoading(false);
     const { token } = loginResponse.access_token;
     console.log('Hay token ', token);
-    toast.success('Bienvenido!')
+    toast.success('Bienvenido a ByS!');
+    setTimeout(() => {
+      router.push('/app/userLogged/Start');
+    }, 500);
   };
 
   const validateEmail = (value:any) => {
@@ -88,7 +94,7 @@ const Signin: NextPage = () => {
         />
         )}
         <Spacer y={1.5} />
-        <div className="form-input">
+        <Row>
           <Input
             required
             {...bindings}
@@ -108,9 +114,9 @@ const Signin: NextPage = () => {
             value={formik.values.email}
             onChange={(event) => formik.handleChange(event)}
           />
-        </div>
+        </Row>
         <Spacer y={2.5} />
-        <div className="form-input">
+        <Row>
           <Input
             required
             bordered
@@ -122,18 +128,18 @@ const Signin: NextPage = () => {
             value={formik.values.password}
             onChange={(event) => formik.handleChange(event)}
           />
-        </div>
+        </Row>
         <Spacer y={2.5} />
-        <div className="form-input">
+        <Row>
           {loading===false && (
-            <Button type="submit" size="lg" color="gradient">
-              Iniciar Sesión
+            <Button type="submit" color="gradient">
+                Iniciar Sesión
             </Button>
           )}
           {loading === true && (
             <Loading />
           )}
-        </div>
+        </Row>
       </form>
     </div>
   )

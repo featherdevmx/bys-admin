@@ -1,8 +1,10 @@
-import type { NextPage } from 'next'
-import { Layout } from '../components/layouts'
-import Signin from './app/pages/Signin/Signin'
+import type { NextPage } from 'next';
+import { Layout } from '../components/layouts';
+import Signin from './app/userGuest/Signin/Signin';
+
 
 const Home: NextPage = () => {
+
   return (
     <Layout headTitle={'Login'}>
       <Signin />
