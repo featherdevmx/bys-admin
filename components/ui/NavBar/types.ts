@@ -1,8 +1,6 @@
-export interface LayoutProps {
-  children: React.ReactNode;
+export interface NavBarProps {
   title?: string;
-  headTitle?: string;
   showIconMenu: boolean;
   changeIconMenu: boolean;
   setChangeIconMenu: any;
-};
+}

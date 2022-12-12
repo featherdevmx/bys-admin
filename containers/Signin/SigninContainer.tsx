@@ -1,18 +1,30 @@
-import { NextPage } from 'next';
-import NextLink from 'next/link';
 import { useFormik } from 'formik';
 import { Chip } from '@mui/material';
-import { useMemo, useState } from 'react';
+import { useRouter } from 'next/router';
 import toast, { Toaster } from 'react-hot-toast';
 import { ErrorOutline } from '@mui/icons-material';
+import React, { useMemo, useState, FC, useEffect } from 'react';
 import { Button, Input, Loading, Spacer, Text, useInput } from '@nextui-org/react';
-import { login } from '../../../../api';
-import { ApiPostData } from '../../../../api/types';
 
-const Signin: NextPage = () => {
+import {Row} from './SigninContainer.styled';
+import { login } from '../../api';
+import { ApiPostData } from '../../api/types';
+
+export const SigninContainer: FC = () => {
+  const router = useRouter();
   const { value, reset, bindings } = useInput('');
   const [error, setError] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    const existToken = localStorage.getItem('bysAuthToken');
+    console.log('Hay token ', existToken);
+    if (existToken !== null) {
+      // setTimeout(() => {
+      //   router.push('/app/userLogged/Start');
+      // }, 500);
+    }
+  }, [router]);
 
   const formik = useFormik({
     initialValues: {email: '', password: ''},
@@ -48,8 +60,9 @@ const Signin: NextPage = () => {
     }
     setLoading(false);
     const { token } = loginResponse.access_token;
-    console.log('Hay token ', token);
-    toast.success('Bienvenido!')
+    toast.success('Bienvenido a ByS!');
+    localStorage.setItem('bysAuthToken', token);
+    router.push('/app/userLogged/Start');
   };
 
   const validateEmail = (value:any) => {
@@ -88,7 +101,7 @@ const Signin: NextPage = () => {
         />
         )}
         <Spacer y={1.5} />
-        <div className="form-input">
+        <Row>
           <Input
             required
             {...bindings}
@@ -108,34 +121,35 @@ const Signin: NextPage = () => {
             value={formik.values.email}
             onChange={(event) => formik.handleChange(event)}
           />
-        </div>
+        </Row>
         <Spacer y={2.5} />
-        <div className="form-input">
+        <Row>
           <Input
             required
-            size="lg"
             bordered
-            label="Contraseña"
             type="password"
+            label="Contraseña"
             name="password"
+            placeholder="Contraseña"
+            size="lg"
             value={formik.values.password}
             onChange={(event) => formik.handleChange(event)}
           />
-        </div>
+        </Row>
         <Spacer y={2.5} />
-        <div className="form-input">
+        <Row>
           {loading===false && (
-            <Button type="submit" size="lg" color="gradient">
-              Iniciar Sesión
+            <Button type="submit" color="gradient">
+                Iniciar Sesión
             </Button>
           )}
           {loading === true && (
             <Loading />
           )}
-        </div>
+        </Row>
       </form>
     </div>
   )
 }
 
-export default Signin;
+export default SigninContainer;
