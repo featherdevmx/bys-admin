@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import { Layout } from '../components/layouts';
-import Signin from './app/userGuest/Signin/Signin';
+import Signin from './app/userGuest/Signin';
 
 
 const Home: NextPage = () => {
