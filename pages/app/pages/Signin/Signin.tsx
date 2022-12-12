@@ -113,11 +113,12 @@ const Signin: NextPage = () => {
         <div className="form-input">
           <Input
             required
-            size="lg"
             bordered
-            label="Contraseña"
             type="password"
+            label="Contraseña"
             name="password"
+            placeholder="Contraseña"
+            size="lg"
             value={formik.values.password}
             onChange={(event) => formik.handleChange(event)}
           />
