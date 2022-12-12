@@ -1,9 +1,9 @@
 {
   "name": "bysadmin",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "cross-env next dev",
     "build": "next build && next export",
     "start": "next start",
     "lint": "next lint"
@@ -13,13 +13,32 @@
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
+    "axios": "^1.2.1",
     "bootstrap": "^5.2.3",
-    "classnames": "^2.3.2",
-    "eslint": "8.28.0",
+    "cross-env": "7.0.3",
+    "eslint": "^8.0.1",
     "eslint-config-next": "13.0.5",
+    "formik": "^2.2.9",
     "next": "13.0.5",
+    "next-base64": "^1.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "typescript": "4.9.3"
+    "react-hot-toast": "^2.4.0",
+    "typescript": "^4.9.4",
+    "@mui/material": "^5.10.17",
+    "@mui/icons-material": "^5.10.16",
+    "@mui/x-data-grid": "^5.17.14",
+    "@emotion/styled": "^11.10.5",
+    "@emotion/react": "^11.10.5"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-standard-with-typescript": "^23.0.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-react": "^7.31.11",
+    "prettier": "^2.8.0"
   }
 }

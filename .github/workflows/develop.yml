@@ -1,9 +1,9 @@
 name: Build and Deploy ByS Admin
 on:
   push:
-    branches: [ develop ]
+    branches: [feature/login-base]
   pull_request:
-    branches: [ develop ]
+    branches: [develop]
 jobs:
   build-and-deploy:
     name: Build and Deploy
@@ -38,6 +38,11 @@ jobs:
 
       - name: Configure environment for NextJS
         run: npm install && npm install -g yarn && yarn install --frozen-lockfile
+
+      - name: Create env file
+        run: |
+          touch .env
+          echo REACT_APP_BASE_URL=${{ secrets.REACT_APP_BASE_URL }} >> .env
 
       - name: Build Static Website
         run: yarn build
