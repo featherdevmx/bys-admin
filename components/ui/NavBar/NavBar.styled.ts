@@ -1,4 +1,6 @@
-.navbar {
+import styled from 'styled-components';
+
+export const NavComponent = styled.div`
   display: flex;
   width: 100%;
   height: 100px;
@@ -8,4 +10,5 @@
   padding: '200px 300px';
   background-color: rgb(38, 41, 43);
   min-width: 320px;
-}
+`;
+;

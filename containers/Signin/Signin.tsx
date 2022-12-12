@@ -3,7 +3,7 @@ import { Chip } from '@mui/material';
 import { useRouter } from 'next/router';
 import toast, { Toaster } from 'react-hot-toast';
 import { ErrorOutline } from '@mui/icons-material';
-import React, { useMemo, useState, FC } from 'react';
+import React, { useMemo, useState, FC, useEffect } from 'react';
 import { Button, Input, Loading, Spacer, Text, useInput } from '@nextui-org/react';
 
 import {Row} from './Signin.styled';
@@ -15,6 +15,16 @@ export const SigninContainer: FC = () => {
   const { value, reset, bindings } = useInput('');
   const [error, setError] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    const existToken = localStorage.getItem('bysAuthToken');
+    console.log('Hay token ', existToken);
+    if (existToken !== null) {
+      setTimeout(() => {
+        router.push('/app/userLogged/Start');
+      }, 500);
+    }
+  }, [router]);
 
   const formik = useFormik({
     initialValues: {email: '', password: ''},
@@ -52,6 +62,7 @@ export const SigninContainer: FC = () => {
     const { token } = loginResponse.access_token;
     console.log('Hay token ', token);
     toast.success('Bienvenido a ByS!');
+    localStorage.setItem('bysAuthToken', token);
     setTimeout(() => {
       router.push('/app/userLogged/Start');
     }, 500);

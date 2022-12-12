@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import React, { FC } from 'react'
 
-import { NavBar } from '../ui'
+import { NavBar } from '../ui/NavBar'
 import { LayoutProps } from './types'
 
 export const Layout: FC<LayoutProps> = ({ children, title, headTitle }) => {
