@@ -6,7 +6,7 @@ import { ErrorOutline } from '@mui/icons-material';
 import React, { useMemo, useState, FC, useEffect } from 'react';
 import { Button, Input, Loading, Spacer, Text, useInput } from '@nextui-org/react';
 
-import {Row} from './Signin.styled';
+import {Row} from './SigninContainer.styled';
 import { login } from '../../api';
 import { ApiPostData } from '../../api/types';
 
@@ -20,9 +20,9 @@ export const SigninContainer: FC = () => {
     const existToken = localStorage.getItem('bysAuthToken');
     console.log('Hay token ', existToken);
     if (existToken !== null) {
-      setTimeout(() => {
-        router.push('/app/userLogged/Start');
-      }, 500);
+      // setTimeout(() => {
+      //   router.push('/app/userLogged/Start');
+      // }, 500);
     }
   }, [router]);
 

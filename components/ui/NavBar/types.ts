@@ -1,3 +1,6 @@
 export interface NavBarProps {
-  title?: string
+  title?: string;
+  showIconMenu: boolean;
+  changeIconMenu: boolean;
+  setChangeIconMenu: any;
 }
