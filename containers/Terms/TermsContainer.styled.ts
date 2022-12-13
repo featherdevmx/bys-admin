@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { styled as styledNU } from '@nextui-org/react';
 
 export const Main = styled.div`
     display: flex;
@@ -16,6 +17,56 @@ export const Header = styled.div`
 
 export const Body = styled.div`
     margin-top: 15px;
-    background-color: blue;
-    height: 200px;
 `;
+
+export const StyledBadge = styledNU('span', {
+  display: 'inline-block',
+  textTransform: 'uppercase',
+  padding: '$2 $3',
+  margin: '0 2px',
+  fontSize: '10px',
+  fontWeight: '$bold',
+  borderRadius: '14px',
+  letterSpacing: '0.6px',
+  lineHeight: 1,
+  boxShadow: '1px 2px 5px 0px rgb(0 0 0 / 5%)',
+  alignItems: 'center',
+  alignSelf: 'center',
+  color: '$white',
+  variants: {
+    type: {
+      active: {
+        bg: '$successLight',
+        color: '$successLightContrast'
+      },
+      inactive: {
+        bg: '$errorLight',
+        color: '$errorLightContrast'
+      },
+      vacation: {
+        bg: '$warningLight',
+        color: '$warningLightContrast'
+      }
+    }
+  },
+  defaultVariants: {
+    type: 'active'
+  }
+});
+
+export const IconButton = styledNU('button', {
+  dflex: 'center',
+  border: 'none',
+  outline: 'none',
+  cursor: 'pointer',
+  padding: '0',
+  margin: '0',
+  bg: 'transparent',
+  transition: '$default',
+  '&:hover': {
+    opacity: '0.8'
+  },
+  '&:active': {
+    opacity: '0.6'
+  }
+});
