@@ -24,6 +24,14 @@ class MyDocument extends Document {
     return (
       <Html lang="es">
         <Head>{CssBaseline.flush()}</Head>
+        <meta
+            name="viewport"
+            content="initial-scale=1.0, maximum-scale=1.0"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,400;0,700;0,900;1,400&display=swap"
+            rel="stylesheet"
+        />
         <body>
           <Main />
           <NextScript />
