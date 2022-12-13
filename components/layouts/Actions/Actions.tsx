@@ -11,7 +11,7 @@ export const Actions:FC = () => {
   const options = [
     {
       id: 1,
-      path: '/',
+      path: '/app/userLogged/Start',
       title: 'Inicio',
     },
     {

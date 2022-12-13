@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import type { NextPage } from 'next';
 import { Layout } from '../../../../components/layouts';
-
+import { TermsContainers } from '../../../../containers/Terms';
 const Terms: NextPage = () => {
   const [showIconMenu] = useState<boolean>(true);
   const [title] = useState<string>('Términos y Condiciones');
@@ -14,7 +14,7 @@ const Terms: NextPage = () => {
       setChangeIconMenu={setChangeIconMenu}
     >
       <h1>{title}</h1>
-      { /* Insert here Container Component */}
+      <TermsContainers />
     </Layout>
   )
 }
