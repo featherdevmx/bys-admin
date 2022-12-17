@@ -1,3 +1,3 @@
-export interface LeftNavProps{
-    open: boolean;
+export interface LeftNavProps {
+  open: boolean
 }

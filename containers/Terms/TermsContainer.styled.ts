@@ -1,23 +1,23 @@
-import styled from 'styled-components';
-import { styled as styledNU } from '@nextui-org/react';
+import styled from 'styled-components'
+import {styled as styledNU} from '@nextui-org/react'
 
 export const Main = styled.div`
-    display: flex;
-    flex-direction: column;
-`;
+  display: flex;
+  flex-direction: column;
+`
 
 export const Header = styled.div`
-    display: flex;
-    align-items: flex-end;
-    flex-direction: column;
-    align-content: flex-start;
-    justify-content: flex-start;
-    margin-bottom: 15px;
-`;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  align-content: flex-start;
+  justify-content: flex-start;
+  margin-bottom: 15px;
+`
 
 export const Body = styled.div`
-    margin-top: 15px;
-`;
+  margin-top: 15px;
+`
 
 export const StyledBadge = styledNU('span', {
   display: 'inline-block',
@@ -37,22 +37,22 @@ export const StyledBadge = styledNU('span', {
     type: {
       active: {
         bg: '$successLight',
-        color: '$successLightContrast'
+        color: '$successLightContrast',
       },
       inactive: {
         bg: '$errorLight',
-        color: '$errorLightContrast'
+        color: '$errorLightContrast',
       },
       vacation: {
         bg: '$warningLight',
-        color: '$warningLightContrast'
-      }
-    }
+        color: '$warningLightContrast',
+      },
+    },
   },
   defaultVariants: {
-    type: 'active'
-  }
-});
+    type: 'active',
+  },
+})
 
 export const IconButton = styledNU('button', {
   dflex: 'center',
@@ -64,9 +64,9 @@ export const IconButton = styledNU('button', {
   bg: 'transparent',
   transition: '$default',
   '&:hover': {
-    opacity: '0.8'
+    opacity: '0.8',
   },
   '&:active': {
-    opacity: '0.6'
-  }
-});
+    opacity: '0.6',
+  },
+})
