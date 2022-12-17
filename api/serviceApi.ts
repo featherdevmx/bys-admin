@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {ApiPostProps} from './types'
 
 const API_URL = process.env.REACT_APP_BASE_URL
