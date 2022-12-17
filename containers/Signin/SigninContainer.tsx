@@ -15,6 +15,7 @@ export const SigninContainer: FC = () => {
   const { value, reset, bindings } = useInput('');
   const [error, setError] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
   useEffect(() => {
     const existToken = localStorage.getItem('bysAuthToken');
@@ -47,10 +48,13 @@ export const SigninContainer: FC = () => {
     const loginResponse = await login(data as unknown as ApiPostData );
     if (!loginResponse.access_token) {
       if (
-          loginResponse.message.includes('E_PASSWORD_MISMATCH') ||
-          loginResponse.message.includes('E_USER_NOT_FOUND')
+          loginResponse.message.includes('E_PASSWORD_MISMATCH')
       ) {
-          toast.error('Usuario o Contraseña incorrecta');
+          setErrorMessage('Usuario o Contraseña incorrecta.');
+          toast.error('Usuario o Contraseña incorrecta.');
+      } else if (loginResponse.message.includes('E_USER_NOT_FOUND')) {
+          setErrorMessage('Usuario no registrado.');
+          toast.error('Usuario no registrado.');
       } else {
           toast.error('Error en petición, intente más tarde');
       }
@@ -94,7 +98,7 @@ export const SigninContainer: FC = () => {
         </Text>
         {error && (
         <Chip
-          label="No reconocemos ese usuario/contraseña"
+          label={errorMessage}
           color="error"
           icon={<ErrorOutline />}
           className="fadein"
