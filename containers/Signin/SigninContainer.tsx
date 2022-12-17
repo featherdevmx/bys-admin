@@ -9,6 +9,7 @@ import { Button, Input, Loading, Spacer, Text, useInput } from '@nextui-org/reac
 import {Row} from './SigninContainer.styled';
 import { login } from '../../api';
 import { ApiPostData } from '../../api/types';
+const testDelete = 1;
 
 export const SigninContainer: FC = () => {
   const router = useRouter();
