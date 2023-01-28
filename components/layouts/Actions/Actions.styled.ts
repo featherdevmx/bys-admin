@@ -1,19 +1,18 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const MenuActions = styled.div`
-    width: 100%;
-    height: 100%;
-`;
+  width: 100%;
+  height: 100%;
+`
 
 export const Menu = styled.div`
-    width: 100%;
-    height: 100%;
-`;
+  width: 100%;
+  height: 100%;
+`
 
 export const Logout = styled.div`
-    margin-top: 300px;
-    display: table;
-    width: 100%;
-    height: 100%;
-`;
-
+  margin-top: 300px;
+  display: table;
+  width: 100%;
+  height: 100%;
+`

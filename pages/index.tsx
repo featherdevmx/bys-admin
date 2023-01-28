@@ -1,21 +1,19 @@
-import React, {useState} from 'react';
-import type { NextPage } from 'next';
-import { Layout } from '../components/layouts';
-import Signin from './app/userGuest/Signin';
-
+import React, {useState} from 'react'
+import type {NextPage} from 'next'
+import {Layout} from '../components/layouts'
+import Signin from './app/userGuest/Signin'
 
 const Home: NextPage = () => {
-  const [showIconMenu] = useState<boolean>(false);
-  const [changeIconMenu, setChangeIconMenu] = useState<boolean>(false);
+  const [showIconMenu] = useState<boolean>(false)
+  const [changeIconMenu, setChangeIconMenu] = useState<boolean>(false)
 
   return (
-    <Layout 
-      headTitle={'Login'} 
+    <Layout
+      headTitle={'Login'}
       showIconMenu={showIconMenu}
       changeIconMenu={changeIconMenu}
-      setChangeIconMenu={setChangeIconMenu}
-      >
-      <Signin /> 
+      setChangeIconMenu={setChangeIconMenu}>
+      <Signin />
     </Layout>
   )
 }
