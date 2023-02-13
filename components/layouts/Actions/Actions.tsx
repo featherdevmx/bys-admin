@@ -10,53 +10,53 @@ export const Actions: FC = () => {
   const options = [
     {
       id: 1,
-      path: '/app/userLogged/Start',
+      path: '/app/user/Start',
       title: 'Inicio',
     },
     {
       id: 2,
-      path: '/app/userLogged/Privacy',
+      path: '/app/user/Privacy',
       title: 'Aviso de Privacidad',
     },
     {
       id: 3,
-      path: '/app/userLogged/Terms',
+      path: '/app/user/Terms',
       title: 'Términos y Condiciones',
     },
     /* ToDO - URLS finales */
     {
       id: 4,
-      path: '/app/userLogged/coberturas',
+      path: '/app/user/Coberturas',
       title: 'PSP - Coberturas',
     },
     {
       id: 5,
-      path: '/app/userLogged/asistencias',
+      path: '/app/user/Asistencias',
       title: 'PSP - Asistencias',
     },
     {
       id: 6,
-      path: '/app/userLogged/ryd',
+      path: '/app/user/Ryd',
       title: 'Reembolsos y Devoluciones',
     },
     {
       id: 7,
-      path: '/app/userLogged/seguro',
+      path: '/app/user/Seguros',
       title: 'Seguro de Vida',
     },
     {
       id: 8,
-      path: '/app/userLogged/pfg',
+      path: '/app/user/Pfg',
       title: 'Plan Familiar Golden',
     },
     {
       id: 9,
-      path: '/app/userLogged/gmm',
+      path: '/app/user/Gmm',
       title: 'Gastos Médicos Mayores',
     },
     {
       id: 10,
-      path: '/app/userLogged/glosario',
+      path: '/app/user/Glosario',
       title: 'Glosario',
     },
   ]

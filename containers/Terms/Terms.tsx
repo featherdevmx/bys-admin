@@ -1,47 +1,40 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // ToDO
-import React, {useState, FC} from 'react'
+import React, {useState, useEffect, FC} from 'react'
 import {Button, Text, Table, Row, Col} from '@nextui-org/react'
-import {
-  Header,
-  Body,
-  Main,
-  StyledBadge,
-  IconButton,
-} from './TermsContainer.styled'
+import {useRouter} from 'next/router'
+import {Header, Body, Main, StyledBadge, IconButton} from './Terms.styled'
 import {EyeIcon} from '../../components/ui/EyeIcon'
 import {EditIcon} from '../../components/ui/EditIcon'
 
+import {getTerms} from '../../api/terms-service'
+
 export const TermsContainers: FC = () => {
   const [lastVersion] = useState<string>('12-12-2022 20:09:23')
+  const [terms, setTerms] = useState([])
+  const [showLastVersion] = useState<boolean>(false)
+  const router = useRouter()
 
   const columns = [
     {name: 'Fecha', uid: 'created_at'},
+    {name: 'Nombre', uid: 'name'},
     {name: 'Creado por', uid: 'author'},
     {name: 'Status', uid: 'status'},
     {name: 'Acciones', uid: 'actions'},
   ]
 
-  const terms = [
-    {
-      id: 1,
-      created_at: '2022-12-20 19:56:03',
-      author: 'Alberto Luebbert M.',
-      status: 'active',
-    },
-    {
-      id: 2,
-      created_at: '2022-11-20 19:56:03',
-      author: 'Efrain Antonio R.',
-      status: 'inactive',
-    },
-    {
-      id: 3,
-      created_at: '2022-10-20 19:56:03',
-      author: 'Alberto Luebbert M.',
-      status: 'inactive',
-    },
-  ]
+  useEffect(() => {
+    console.log('Arranque de terms')
+    const fetchData = async () => {
+      // Obtener todos los términos y condiciones
+      const termsResponse = await getTerms()
+
+      if (!termsResponse.error) {
+        setTerms(termsResponse.data)
+      }
+    }
+    fetchData()
+  }, [])
 
   const RenderActions = () => (
     <Row justify="center" align="center">
@@ -72,24 +65,36 @@ export const TermsContainers: FC = () => {
     const cellValue = user[columnKey]
     switch (columnKey) {
       case 'status':
-        return <StyledBadge type={user.status}>{cellValue}</StyledBadge>
+        return (
+          <StyledBadge type={user.status}>
+            {cellValue === 0 ? 'Activo' : 'Inactivo'}
+          </StyledBadge>
+        )
       case 'actions':
         return <RenderActions />
+      case 'author':
+        return `${user.firstName} ${user.lastName}`
       default:
         return cellValue
     }
   }
 
+  const goToNewVersion = () => {
+    router.push('/app/user/Terms/new')
+  }
+
   return (
     <Main>
       <Header>
-        <Text color="black" h5>
-          Última Actualización:{' '}
-          <Text color="gray" h5>
-            {lastVersion}
+        {showLastVersion === true && (
+          <Text color="black" h5>
+            Última Actualización:{' '}
+            <Text color="gray" h5>
+              {lastVersion}
+            </Text>
           </Text>
-        </Text>
-        <Button type="submit" color="gradient">
+        )}
+        <Button type="submit" color="gradient" onPress={goToNewVersion}>
           Crear Nueva versión
         </Button>
       </Header>

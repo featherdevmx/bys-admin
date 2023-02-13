@@ -21,9 +21,9 @@ export const SigninContainer: FC = () => {
     const existToken = localStorage.getItem('bysAuthToken')
     console.log('Hay token ', existToken)
     if (existToken !== null) {
-      // setTimeout(() => {
-      //   router.push('/app/userLogged/Start');
-      // }, 500);
+      setTimeout(() => {
+        router.push('/app/user/Start')
+      }, 500)
     }
   }, [router])
 
@@ -63,9 +63,10 @@ export const SigninContainer: FC = () => {
     const {token} = loginResponse.access_token
     toast.success('Bienvenido a ByS!')
     localStorage.setItem('bysAuthToken', token)
-    router.push('/app/userLogged/Start')
+    router.push('/app/user/Start')
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const validateEmail = (checkValue: any) =>
     checkValue.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i)
 

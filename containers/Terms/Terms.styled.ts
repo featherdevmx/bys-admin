@@ -35,11 +35,11 @@ export const StyledBadge = styledNU('span', {
   color: '$white',
   variants: {
     type: {
-      active: {
+      0: {
         bg: '$successLight',
         color: '$successLightContrast',
       },
-      inactive: {
+      1: {
         bg: '$errorLight',
         color: '$errorLightContrast',
       },
