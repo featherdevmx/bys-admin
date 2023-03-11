@@ -1,4 +1,4 @@
-import {servicesPOST, handleErrorResponse} from './serviceApi'
+import {servicesPost, handleErrorResponse} from './serviceApi'
 import {ApiPostData} from './types'
 
 export const login = async (data: ApiPostData) => {
@@ -11,7 +11,7 @@ export const login = async (data: ApiPostData) => {
       isLoginRequest: true,
     }
 
-    const response = await servicesPOST(params)
+    const response = await servicesPost(params)
 
     if (response.ok) {
       return await response.json()

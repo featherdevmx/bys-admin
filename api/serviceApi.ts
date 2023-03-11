@@ -40,7 +40,7 @@ function headers(isMultipartRequest = false, isLoginRequest = false) {
   }
 }
 
-export const servicesPOST = async (params: ApiPostProps) => {
+export const servicesPost = async (params: ApiPostProps) => {
   const {route, data, isLoginRequest} = params
 
   console.log(':: POST Request')
@@ -57,6 +57,57 @@ export const servicesPOST = async (params: ApiPostProps) => {
   }
 
   const url = API_URL + route
+
+  const response = await fetch(url, options)
+  return response
+}
+
+export const servicesGet = async (url: string) => {
+  const options: any = {
+    cache: 'no-cache',
+    headers: headers(),
+    method: 'GET',
+    mode: 'cors',
+  }
+
+  const response = await fetch(url, options)
+  return response
+}
+
+export const servicesPut = async (url: string, data: any) => {
+  const options: any = {
+    cache: 'no-cache',
+    headers: headers(),
+    method: 'PUT',
+    mode: 'cors',
+    body: data ? JSON.stringify(data) : null,
+  }
+
+  const response = await fetch(url, options)
+  return response
+}
+
+export const servicesPatch = async (url: string, data: any) => {
+  const options: any = {
+    cache: 'no-cache',
+    headers: headers(),
+    method: 'PATCH',
+    mode: 'cors',
+    body: JSON.stringify(data),
+  }
+
+  const response = await fetch(url, options)
+  return response
+}
+
+export const httpDelete = async (url: string, data: any) => {
+  const options: any = {
+    cache: 'no-cache',
+    headers: headers(),
+    method: 'DELETE',
+    mode: 'cors',
+    body: data ? JSON.stringify(data) : null,
+  }
 
   const response = await fetch(url, options)
   return response
