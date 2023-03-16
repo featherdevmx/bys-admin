@@ -1,11 +1,11 @@
-import React, {FC} from 'react'
-import {useRouter} from 'next/router'
-import {Text} from '@nextui-org/react'
-import {MenuLink} from '../../ui/MenuLink'
-import {MenuActions, Menu, Logout} from './Actions.styled'
+import React, { FC } from 'react';
+import { useRouter } from 'next/router';
+import { Text } from '@nextui-org/react';
+import { MenuLink } from '../../ui/MenuLink';
+import { MenuActions, Menu, Logout } from './Actions.styled';
 
 export const Actions: FC = () => {
-  const router = useRouter()
+  const router = useRouter();
 
   const options = [
     {
@@ -59,12 +59,12 @@ export const Actions: FC = () => {
       path: '/app/user/Glosario',
       title: 'Glosario',
     },
-  ]
+  ];
 
   const handleLogout = () => {
-    localStorage.removeItem('bysAuthToken')
-    router.push('/')
-  }
+    localStorage.removeItem('bysAuthToken');
+    router.push('/');
+  };
 
   return (
     <MenuActions>
@@ -74,22 +74,13 @@ export const Actions: FC = () => {
       <Menu>
         {options.map(item => (
           <>
-            <MenuLink
-              type={'link'}
-              id={item.id}
-              path={item.path}
-              title={item.title}
-            />
+            <MenuLink type={'link'} id={item.id} path={item.path} title={item.title} />
           </>
         ))}
       </Menu>
       <Logout>
-        <MenuLink
-          type={'btn'}
-          title={'Cerrar Sesión'}
-          action={() => handleLogout()}
-        />
+        <MenuLink type={'btn'} title={'Cerrar Sesión'} action={() => handleLogout()} />
       </Logout>
     </MenuActions>
-  )
-}
+  );
+};

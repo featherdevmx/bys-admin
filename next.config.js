@@ -15,11 +15,10 @@ const nextConfig = {
     return [
       {
         source: '/:path*',
-        destination:
-          'https://bys-api.ao25qg3fhikk4.us-east-1.cs.amazonlightsail.com/:path*',
+        destination: 'https://bys-api.ao25qg3fhikk4.us-east-1.cs.amazonlightsail.com/:path*',
       },
-    ]
+    ];
   },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

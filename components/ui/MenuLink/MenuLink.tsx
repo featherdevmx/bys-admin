@@ -1,9 +1,9 @@
-import React from 'react'
-import Link from 'next/link'
+import React from 'react';
+import Link from 'next/link';
 
-import {MenuLinkProps} from './types'
+import { MenuLinkProps } from './types';
 
-export const MenuLink = ({id, path, title, type, action}: MenuLinkProps) => (
+export const MenuLink = ({ id, path, title, type, action }: MenuLinkProps) => (
   <div key={id}>
     {type === 'btn' && (
       <div onClick={action}>
@@ -16,4 +16,4 @@ export const MenuLink = ({id, path, title, type, action}: MenuLinkProps) => (
       </Link>
     )}
   </div>
-)
+);

@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Row = styled.div`
   display: flex;
@@ -6,4 +6,4 @@ export const Row = styled.div`
   align-content: center;
   justify-content: center;
   justify-content: center;
-`
+`;

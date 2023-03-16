@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const NavComponent = styled.div`
   width: 100%;
@@ -10,4 +10,4 @@ export const NavComponent = styled.div`
   padding: '200px 300px';
   justify-content: flex-start;
   background-color: rgb(38, 41, 43);
-`
+`;

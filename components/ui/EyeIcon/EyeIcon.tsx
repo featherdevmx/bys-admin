@@ -1,12 +1,7 @@
-import {EyeIconProps} from './types'
+import { EyeIconProps } from './types';
 
-export const EyeIcon = ({fill, size, height, width}: EyeIconProps) => (
-  <svg
-    width={size || width || 24}
-    height={size || height || 24}
-    viewBox="0 0 20 20"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg">
+export const EyeIcon = ({ fill, size, height, width }: EyeIconProps) => (
+  <svg width={size || width || 24} height={size || height || 24} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       d="M12.9833 10C12.9833 11.65 11.65 12.9833 10 12.9833C8.35 12.9833 7.01666 11.65 7.01666 10C7.01666 8.35 8.35 7.01666 10 7.01666C11.65 7.01666 12.9833 8.35 12.9833 10Z"
       stroke={fill}
@@ -22,4 +17,4 @@ export const EyeIcon = ({fill, size, height, width}: EyeIconProps) => (
       strokeLinejoin="round"
     />
   </svg>
-)
+);

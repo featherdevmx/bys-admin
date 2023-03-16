@@ -5,17 +5,9 @@
     "node": true,
     "jest": true
   },
-  "extends": [
-    "plugin:react/recommended",
-    "airbnb-base",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:import/errors",
-    "plugin:import/warnings",
-    "plugin:import/typescript",
-    "prettier"
-  ],
+  "extends": ["plugin:react/recommended", "airbnb-base", "plugin:@typescript-eslint/recommended", "plugin:import/errors", "plugin:import/warnings", "plugin:import/typescript", "prettier"],
   "settings": {
-    "react": {"version": "detect"},
+    "react": { "version": "detect" },
     "import/resolver": {
       "typescript": {
         "project": "./tsconfig.json"
@@ -35,13 +27,13 @@
   },
   "plugins": ["react", "react-hooks", "jest", "prettier"],
   "rules": {
-    "no-use-before-define": ["error", {"variables": false}],
+    "no-use-before-define": ["error", { "variables": false }],
     "import/prefer-default-export": "off",
     "prettier/prettier": "error",
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
     "import/extensions": "off",
-    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
     "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
     "react-hooks/exhaustive-deps": "warn", // Checks effect dependencies
     "jest/no-disabled-tests": "warn",
@@ -50,11 +42,11 @@
     "jest/prefer-to-have-length": "warn",
     "jest/valid-expect": "error",
     "no-console": "off",
-    "no-underscore-dangle": ["error", {"allow": ["__meta__"]}],
+    "no-underscore-dangle": ["error", { "allow": ["__meta__"] }],
     "no-restricted-properties": "off",
     "no-prototype-builtins": "off",
     "no-restricted-exports": "off",
-    "no-plusplus": ["error", {"allowForLoopAfterthoughts": true}],
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
     // note you must disable the base rule as it can report incorrect errors
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": ["error"]

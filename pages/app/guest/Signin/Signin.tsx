@@ -1,6 +1,6 @@
-import {NextPage} from 'next'
-import {SigninContainer} from '../../../../containers/Signin'
+import { NextPage } from 'next';
+import { SigninContainer } from '../../../../containers/Signin';
 
-const Signin: NextPage = () => <SigninContainer />
+const Signin: NextPage = () => <SigninContainer />;
 
-export default Signin
+export default Signin;

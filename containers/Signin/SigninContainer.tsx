@@ -1,87 +1,86 @@
-import {useFormik} from 'formik'
-import {Chip} from '@mui/material'
-import {useRouter} from 'next/router'
-import toast, {Toaster} from 'react-hot-toast'
-import {ErrorOutline} from '@mui/icons-material'
-import React, {useMemo, useState, FC, useEffect} from 'react'
-import {Button, Input, Loading, Spacer, Text, useInput} from '@nextui-org/react'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useFormik } from 'formik';
+import { Chip } from '@mui/material';
+import { useRouter } from 'next/router';
+import toast, { Toaster } from 'react-hot-toast';
+import { ErrorOutline } from '@mui/icons-material';
+import React, { useMemo, useState, FC, useEffect } from 'react';
+import { Button, Input, Loading, Spacer, Text, useInput } from '@nextui-org/react';
 
-import {Row} from './SigninContainer.styled'
-import {login} from '../../api'
-import {ApiPostData} from '../../api/types'
+import { Row } from './SigninContainer.styled';
+import { login } from '../../api';
+import { ApiPostData } from '../../api/types';
 
 export const SigninContainer: FC = () => {
-  const router = useRouter()
-  const {value, reset, bindings} = useInput('')
-  const [error, setError] = useState<boolean>(false)
-  const [loading, setLoading] = useState<boolean>(false)
-  const [errorMessage, setErrorMessage] = useState<string>('')
+  const router = useRouter();
+  const { value, reset, bindings } = useInput('');
+  const [error, setError] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
   useEffect(() => {
-    const existToken = localStorage.getItem('bysAuthToken')
-    console.log('Hay token ', existToken)
+    const existToken = localStorage.getItem('bysAuthToken');
+    console.log('Hay token ', existToken);
     if (existToken !== null) {
       setTimeout(() => {
-        router.push('/app/user/Start')
-      }, 500)
+        router.push('/app/user/Start');
+      }, 500);
     }
-  }, [router])
+  }, [router]);
 
   const formik = useFormik({
-    initialValues: {email: '', password: ''},
+    initialValues: { email: '', password: '' },
     onSubmit: () => {
-      handleLogin()
-      setLoading(true)
-      formik.resetForm()
+      handleLogin();
+      setLoading(true);
+      formik.resetForm();
     },
-  })
+  });
 
   const handleLogin = async () => {
-    setError(false)
+    setError(false);
 
     const data = {
       email: formik.values.email,
       password: formik.values.password,
-    }
+    };
 
-    const loginResponse = await login(data as unknown as ApiPostData)
+    const loginResponse = await login(data as unknown as ApiPostData);
     if (!loginResponse.access_token) {
       if (loginResponse.message.includes('E_PASSWORD_MISMATCH')) {
-        setErrorMessage('Usuario o Contraseña incorrecta.')
-        toast.error('Usuario o Contraseña incorrecta.')
+        setErrorMessage('Usuario o Contraseña incorrecta.');
+        toast.error('Usuario o Contraseña incorrecta.');
       } else if (loginResponse.message.includes('E_USER_NOT_FOUND')) {
-        setErrorMessage('Usuario no registrado.')
-        toast.error('Usuario no registrado.')
+        setErrorMessage('Usuario no registrado.');
+        toast.error('Usuario no registrado.');
       } else {
-        toast.error('Error en petición, intente más tarde')
+        toast.error('Error en petición, intente más tarde');
       }
-      setError(true)
-      setLoading(false)
-      return
+      setError(true);
+      setLoading(false);
+      return;
     }
-    setLoading(false)
-    const {token} = loginResponse.access_token
-    toast.success('Bienvenido a ByS!')
-    localStorage.setItem('bysAuthToken', token)
-    router.push('/app/user/Start')
-  }
+    setLoading(false);
+    const { token } = loginResponse.access_token;
+    toast.success('Bienvenido a ByS!');
+    localStorage.setItem('bysAuthToken', token);
+    router.push('/app/user/Start');
+  };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const validateEmail = (checkValue: any) =>
-    checkValue.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i)
+  const validateEmail = (checkValue: any) => checkValue.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i);
 
   const helper = useMemo(() => {
     if (!value)
       return {
         text: '',
         color: '',
-      }
-    const isValid = validateEmail(value)
+      };
+    const isValid = validateEmail(value);
     return {
       text: isValid ? 'Email Correcto' : 'Ingresa un mail correcto',
       color: isValid ? 'success' : 'error',
-    }
-  }, [value])
+    };
+  }, [value]);
 
   return (
     <div className={'form_signin'}>
@@ -90,14 +89,7 @@ export const SigninContainer: FC = () => {
         <Text color="black" h2>
           Iniciar Sesión
         </Text>
-        {error && (
-          <Chip
-            label={errorMessage}
-            color="error"
-            icon={<ErrorOutline />}
-            className="fadein"
-          />
-        )}
+        {error && <Chip label={errorMessage} color="error" icon={<ErrorOutline />} className="fadein" />}
         <Spacer y={1.5} />
         <Row>
           <Input
@@ -145,7 +137,7 @@ export const SigninContainer: FC = () => {
         </Row>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default SigninContainer
+export default SigninContainer;

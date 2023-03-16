@@ -1,1 +1,1 @@
-export * from './NewTerms'
+export * from './NewTerms';

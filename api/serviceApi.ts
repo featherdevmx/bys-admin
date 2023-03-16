@@ -1,52 +1,52 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {ApiPostProps} from './types'
+import { ApiPostProps } from './types';
 
-const API_URL = process.env.REACT_APP_BASE_URL
+const API_URL = process.env.REACT_APP_BASE_URL;
 
 const defaultHeaders = {
   'content-type': 'application/json',
   accept: 'application/json',
   'Access-Control-Allow-Origin': '*',
-}
+};
 
-const defaultMultipartHeaders = {}
+const defaultMultipartHeaders = {};
 
 function headers(isMultipartRequest = false, isLoginRequest = false) {
-  let jwt = null
-  const locale = 'es'
+  let jwt = null;
+  const locale = 'es';
 
   try {
-    jwt = localStorage ? localStorage.getItem('bysAuthToken') : null
+    jwt = localStorage ? localStorage.getItem('bysAuthToken') : null;
   } catch (error) {
-    jwt = null
+    jwt = null;
   }
 
   if (jwt === null || isLoginRequest) {
     if (isMultipartRequest) {
-      return defaultMultipartHeaders
+      return defaultMultipartHeaders;
     }
 
-    return {...defaultHeaders, 'Accept-Language': locale}
+    return { ...defaultHeaders, 'Accept-Language': locale };
   }
 
   if (jwt !== null && isMultipartRequest) {
-    return {...defaultMultipartHeaders, authorization: `Bearer ${jwt}`}
+    return { ...defaultMultipartHeaders, authorization: `Bearer ${jwt}` };
   }
 
   return {
     ...defaultHeaders,
     authorization: `Bearer ${jwt}`,
     'Accept-Language': locale,
-  }
+  };
 }
 
 export const servicesPost = async (params: ApiPostProps) => {
-  const {route, data, isLoginRequest} = params
+  const { route, data, isLoginRequest } = params;
 
-  console.log(':: POST Request')
-  console.log(':: Data Sended -> ', data)
-  console.log(':: Go To Route -> ', route)
-  console.log(':: IsLoginRequest -> ', isLoginRequest)
+  console.log(':: POST Request');
+  console.log(':: Data Sended -> ', data);
+  console.log(':: Go To Route -> ', route);
+  console.log(':: IsLoginRequest -> ', isLoginRequest);
 
   const options: any = {
     cache: 'no-cache',
@@ -54,13 +54,13 @@ export const servicesPost = async (params: ApiPostProps) => {
     method: 'POST',
     mode: 'cors',
     body: JSON.stringify(data),
-  }
+  };
 
-  const url = API_URL + route
+  const url = API_URL + route;
 
-  const response = await fetch(url, options)
-  return response
-}
+  const response = await fetch(url, options);
+  return response;
+};
 
 export const servicesGet = async (url: string) => {
   const options: any = {
@@ -68,11 +68,11 @@ export const servicesGet = async (url: string) => {
     headers: headers(),
     method: 'GET',
     mode: 'cors',
-  }
+  };
 
-  const response = await fetch(url, options)
-  return response
-}
+  const response = await fetch(url, options);
+  return response;
+};
 
 export const servicesPut = async (url: string, data: any) => {
   const options: any = {
@@ -81,11 +81,11 @@ export const servicesPut = async (url: string, data: any) => {
     method: 'PUT',
     mode: 'cors',
     body: data ? JSON.stringify(data) : null,
-  }
+  };
 
-  const response = await fetch(url, options)
-  return response
-}
+  const response = await fetch(url, options);
+  return response;
+};
 
 export const servicesPatch = async (url: string, data: any) => {
   const options: any = {
@@ -94,11 +94,11 @@ export const servicesPatch = async (url: string, data: any) => {
     method: 'PATCH',
     mode: 'cors',
     body: JSON.stringify(data),
-  }
+  };
 
-  const response = await fetch(url, options)
-  return response
-}
+  const response = await fetch(url, options);
+  return response;
+};
 
 export const httpDelete = async (url: string, data: any) => {
   const options: any = {
@@ -107,27 +107,23 @@ export const httpDelete = async (url: string, data: any) => {
     method: 'DELETE',
     mode: 'cors',
     body: data ? JSON.stringify(data) : null,
-  }
+  };
 
-  const response = await fetch(url, options)
-  return response
-}
+  const response = await fetch(url, options);
+  return response;
+};
 
 export const handleErrorResponse = (errorResponse: any) => {
-  const error = JSON.parse(errorResponse)
+  const error = JSON.parse(errorResponse);
 
   if (Array.isArray(error)) {
     return {
       error: true,
-      message: error[0].message
-        ? error[0].message
-        : 'Ha ocurrido un error al intentar realizar la operación.',
-    }
+      message: error[0].message ? error[0].message : 'Ha ocurrido un error al intentar realizar la operación.',
+    };
   }
   return {
     error: true,
-    message: error.message
-      ? error.message
-      : 'Ha ocurrido un error al intentar realizar la operación.',
-  }
-}
+    message: error.message ? error.message : 'Ha ocurrido un error al intentar realizar la operación.',
+  };
+};

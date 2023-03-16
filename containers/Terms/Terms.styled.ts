@@ -1,10 +1,10 @@
-import styled from 'styled-components'
-import {styled as styledNU} from '@nextui-org/react'
+import styled from 'styled-components';
+import { styled as styledNU } from '@nextui-org/react';
 
 export const Main = styled.div`
   display: flex;
   flex-direction: column;
-`
+`;
 
 export const Header = styled.div`
   display: flex;
@@ -13,11 +13,11 @@ export const Header = styled.div`
   align-content: flex-start;
   justify-content: flex-start;
   margin-bottom: 15px;
-`
+`;
 
 export const Body = styled.div`
   margin-top: 15px;
-`
+`;
 
 export const StyledBadge = styledNU('span', {
   display: 'inline-block',
@@ -52,7 +52,7 @@ export const StyledBadge = styledNU('span', {
   defaultVariants: {
     type: 'active',
   },
-})
+});
 
 export const IconButton = styledNU('button', {
   dflex: 'center',
@@ -69,4 +69,4 @@ export const IconButton = styledNU('button', {
   '&:active': {
     opacity: '0.6',
   },
-})
+});

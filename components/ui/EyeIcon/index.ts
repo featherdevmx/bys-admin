@@ -1,1 +1,1 @@
-export * from './EyeIcon'
+export * from './EyeIcon';
