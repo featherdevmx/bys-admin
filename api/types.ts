@@ -7,3 +7,12 @@ export interface ApiPostProps {
 export interface ApiPostData {
   data: object;
 }
+
+export interface UserInfo {
+  user: {
+    id: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+  };
+}
