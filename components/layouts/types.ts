@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface LayoutProps {
-  // eslint-disable-next-line no-undef
   children: React.ReactNode;
   title?: string;
   headTitle?: string;

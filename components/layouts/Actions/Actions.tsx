@@ -4,8 +4,12 @@ import { Text } from '@nextui-org/react';
 import { MenuLink } from '../../ui/MenuLink';
 import { MenuActions, Menu, Logout } from './Actions.styled';
 
+import { useInfoUser } from '../../../hooks/useInfoUser';
+
 export const Actions: FC = () => {
   const router = useRouter();
+
+  const { UsersData, setUsersData } = useInfoUser();
 
   const options = [
     {
@@ -62,6 +66,7 @@ export const Actions: FC = () => {
   ];
 
   const handleLogout = () => {
+    setUsersData([]);
     localStorage.removeItem('bysAuthToken');
     router.push('/');
   };
@@ -69,6 +74,9 @@ export const Actions: FC = () => {
   return (
     <MenuActions>
       <Text color="black" h3>
+        ¡Hola {UsersData[0]?.firstName}!
+      </Text>
+      <Text color="black" h5>
         Seleccione una opción
       </Text>
       <Menu>

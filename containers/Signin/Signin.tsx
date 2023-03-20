@@ -4,12 +4,13 @@ import { Chip } from '@mui/material';
 import { useRouter } from 'next/router';
 import toast, { Toaster } from 'react-hot-toast';
 import { ErrorOutline } from '@mui/icons-material';
-import React, { useMemo, useState, FC, useEffect } from 'react';
+import React, { useMemo, useState, FC } from 'react';
 import { Button, Input, Loading, Spacer, Text, useInput } from '@nextui-org/react';
 
-import { Row } from './SigninContainer.styled';
-import { login } from '../../api';
+import { Row } from './Signin.styled';
+import { getUserInfo, login } from '../../api';
 import { ApiPostData } from '../../api/types';
+import { useInfoUser } from '../../hooks/useInfoUser';
 
 export const SigninContainer: FC = () => {
   const router = useRouter();
@@ -17,16 +18,7 @@ export const SigninContainer: FC = () => {
   const [error, setError] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
-
-  useEffect(() => {
-    const existToken = localStorage.getItem('bysAuthToken');
-    console.log('Hay token ', existToken);
-    if (existToken !== null) {
-      setTimeout(() => {
-        router.push('/app/user/Start');
-      }, 500);
-    }
-  }, [router]);
+  const { UsersData, setUsersData } = useInfoUser();
 
   const formik = useFormik({
     initialValues: { email: '', password: '' },
@@ -62,6 +54,18 @@ export const SigninContainer: FC = () => {
     }
     setLoading(false);
     const { token } = loginResponse.access_token;
+    const userInfo = getUserInfo(token);
+    const { user } = userInfo;
+
+    const newUser = {
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+    };
+
+    setUsersData([...UsersData, newUser]);
+
     toast.success('Bienvenido a ByS!');
     localStorage.setItem('bysAuthToken', token);
     router.push('/app/user/Start');
@@ -139,5 +143,3 @@ export const SigninContainer: FC = () => {
     </div>
   );
 };
-
-export default SigninContainer;
