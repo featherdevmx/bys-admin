@@ -1,14 +1,16 @@
 import React, { FC, useState } from 'react';
-import ReactQuill from 'react-quill';
 import { useRouter } from 'next/router';
 import { Loading } from '@nextui-org/react';
 import toast, { Toaster } from 'react-hot-toast';
+import dynamic from 'next/dynamic';
 import { Button } from '../../components/ui/Button/Button';
 import { NavBar, Row, InputText } from './NewTerms.styled';
 import 'react-quill/dist/quill.snow.css';
 import { saveTerms } from '../../api/terms-service';
 
 import { useInfoUser } from '../../hooks/useInfoUser';
+
+const ReactQuill = dynamic(import('react-quill'), { ssr: false });
 
 export const NewTermsContainer: FC = () => {
   const router = useRouter();
@@ -27,7 +29,7 @@ export const NewTermsContainer: FC = () => {
     const dataTerms = {
       name: titleTerms,
       content: info,
-      user_id: UsersData[0].id,
+      user_id: UsersData[0]?.id,
     };
 
     const termsSave = await saveTerms(dataTerms);
@@ -60,7 +62,7 @@ export const NewTermsContainer: FC = () => {
       <Row>
         <InputText type="text" value={titleTerms} onChange={handleChangeTitle} placeholder="Selecciona título de Términos y Condiciones" />
       </Row>
-      <ReactQuill theme="snow" value={content} onChange={handleChangeForm} />
+      <ReactQuill theme="snow" value={content} onChange={handleChangeForm} placeholder="Escribe la próxima versión de Términos y Condiciones." />
       <NavBar>
         <Button title={'Guardar'} action={() => handleSave(content)} btnType={'principal'} />
         <Button title={'Cancelar'} action={() => handleCancel()} btnType={'principal'} />
