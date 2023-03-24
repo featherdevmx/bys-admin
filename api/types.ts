@@ -16,3 +16,8 @@ export interface UserInfo {
     email: string;
   };
 }
+
+export interface ApiUpdateProps {
+  data: object;
+  route: string;
+}

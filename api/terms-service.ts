@@ -13,7 +13,7 @@ export const getTerms = async () => {
     }
 
     const errorResponse = await response.text();
-    console.log('ERROR getAreas()', errorResponse);
+    console.log('ERROR getTerms Service()', errorResponse);
     return handleErrorResponse(errorResponse);
   } catch (error) {
     console.log('CATCH Terms Service()', error);

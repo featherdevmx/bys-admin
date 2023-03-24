@@ -1,0 +1,88 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { PrivacyOneProps } from '../containers/PrivacyForm/types';
+import { servicesGet, handleErrorResponse, servicesPost, servicesPut } from './serviceApi';
+
+const API_URL = process.env.REACT_APP_BASE_URL;
+
+export const getPrivacies = async () => {
+  try {
+    const endpoint = `${API_URL}/privacy`;
+    const response = await servicesGet(endpoint);
+
+    if (response.ok) {
+      return await response.json();
+    }
+
+    const errorResponse = await response.text();
+    console.log('ERROR Privacy Service()', errorResponse);
+    return handleErrorResponse(errorResponse);
+  } catch (error) {
+    console.log('CATCH Privacy Service()', error);
+    return error;
+  }
+};
+
+export const savePrivacy = async (data: any) => {
+  try {
+    const endpoint = `/privacy`;
+
+    const params = {
+      data,
+      route: endpoint,
+      isLoginRequest: false,
+    };
+
+    const response = await servicesPost(params);
+
+    if (response.ok) {
+      return await response.json();
+    }
+    const errorResponse = await response.text();
+    console.log('ERROR createPrivacy()', errorResponse);
+    return handleErrorResponse(errorResponse);
+  } catch (error) {
+    console.log('CATCH createPrivacy()', error);
+    return error;
+  }
+};
+
+export const getPrivacy = async (idPrivacy: PrivacyOneProps) => {
+  try {
+    const endpoint = `${API_URL}/privacy/${idPrivacy}`;
+    const response = await servicesGet(endpoint);
+
+    if (response.ok) {
+      return await response.json();
+    }
+
+    const errorResponse = await response.text();
+    console.log('ERROR Privacy Service()', errorResponse);
+    return handleErrorResponse(errorResponse);
+  } catch (error) {
+    console.log('CATCH Privacy Service()', error);
+    return error;
+  }
+};
+
+export const updatePrivacy = async (idPrivacy: PrivacyOneProps, data: any) => {
+  try {
+    const endpoint = `${API_URL}/privacy/${idPrivacy}`;
+
+    const params = {
+      data,
+      route: endpoint,
+    };
+
+    const response = await servicesPut(idPrivacy as unknown as string, params);
+
+    if (response.ok) {
+      return await response.json();
+    }
+    const errorResponse = await response.text();
+    console.log('ERROR updatePrivacy()', errorResponse);
+    return handleErrorResponse(errorResponse);
+  } catch (error) {
+    console.log('CATCH updatePrivacy()', error);
+    return error;
+  }
+};
