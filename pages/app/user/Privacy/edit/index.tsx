@@ -9,11 +9,11 @@ const EditPrivacy: NextPage = () => {
   const { id } = router.query;
 
   const [showIconMenu] = useState<boolean>(true);
-  const [title] = useState<string>('Crear nueva versión');
+  const [title] = useState<string>('Editar versión');
   const [changeIconMenu, setChangeIconMenu] = useState<boolean>(false);
   return (
     <Layout headTitle={title} showIconMenu={showIconMenu} changeIconMenu={changeIconMenu} setChangeIconMenu={setChangeIconMenu}>
-      <h1>{title}</h1>
+      <h3>{title}</h3>
       <PrivacyFormContainer edit={true} id={id as string} />
     </Layout>
   );

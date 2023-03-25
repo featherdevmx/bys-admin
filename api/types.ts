@@ -19,5 +19,5 @@ export interface UserInfo {
 
 export interface ApiUpdateProps {
   data: object;
-  route: string;
+  url: string;
 }

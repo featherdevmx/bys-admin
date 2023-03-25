@@ -74,8 +74,8 @@ export const servicesGet = async (url: string) => {
   return response;
 };
 
-export const servicesPut = async (id: string, params: ApiUpdateProps) => {
-  const { route, data } = params;
+export const servicesPut = async (params: ApiUpdateProps) => {
+  const { url, data } = params;
   const options: any = {
     cache: 'no-cache',
     headers: headers(),
@@ -83,8 +83,6 @@ export const servicesPut = async (id: string, params: ApiUpdateProps) => {
     mode: 'cors',
     body: data ? JSON.stringify(data) : null,
   };
-
-  const url = API_URL + route;
 
   const response = await fetch(url, options);
   return response;

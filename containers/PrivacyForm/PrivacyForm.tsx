@@ -8,7 +8,7 @@ import { Button } from '../../components/ui/Button/Button';
 import { NavBar, Row, InputText } from './PrivacyForm.styled';
 import { PrivacyForm, PrivacyOneProps } from './types';
 import 'react-quill/dist/quill.snow.css';
-import { savePrivacy, getPrivacy } from '../../api/privacy-service';
+import { savePrivacy, getPrivacy, updatePrivacy } from '../../api/privacy-service';
 import { useInfoUser } from '../../hooks/useInfoUser';
 
 const ReactQuill = dynamic(import('react-quill'), { ssr: false });
@@ -18,7 +18,7 @@ export const PrivacyFormContainer: FC<PrivacyForm> = ({ id, edit }: PrivacyForm)
   const { UsersData } = useInfoUser();
   const [contentPrivacy, setContentPrivacy] = useState('');
   const [titlePrivacy, setTitlePrivacy] = useState('');
-  // const [setIdPrivacy] = useState<PrivacyOneProps>();
+  const [idPrivacy, setIdPrivacy] = useState<PrivacyOneProps>();
   const [loading, setLoading] = useState<boolean>(false);
   const [updateTerms, setUpdateTerms] = useState<boolean>(false);
 
@@ -28,11 +28,10 @@ export const PrivacyFormContainer: FC<PrivacyForm> = ({ id, edit }: PrivacyForm)
 
   const handleGetPrivacyOne = useCallback(async (idPrivacyParam: PrivacyOneProps) => {
     const onePrivacySaved = await getPrivacy(idPrivacyParam as PrivacyOneProps);
-    console.log(`Holas perro ${JSON.stringify(onePrivacySaved)}`);
     // Asignamos información almacenada en BD
     setTitlePrivacy(onePrivacySaved.name);
     setContentPrivacy(onePrivacySaved.content);
-    // setIdPrivacy(onePrivacySaved.id);
+    setIdPrivacy(onePrivacySaved.id);
     setLoading(false);
     setUpdateTerms(true);
   }, []);
@@ -55,9 +54,20 @@ export const PrivacyFormContainer: FC<PrivacyForm> = ({ id, edit }: PrivacyForm)
       user_id: UsersData[0]?.id,
     };
 
-    /*
     if (updateTerms) {
-      const privacySave = await updatePrivacy(idPrivacy, dataPrivacy);
+      const privacyUpdate = await updatePrivacy(idPrivacy, dataPrivacy);
+      if (privacyUpdate) {
+        setLoading(false);
+        toast.success('Se actualizo exitosamente el Aviso de Privacidad');
+        setTimeout(() => {
+          router.push('/app/user/Privacy');
+        }, 1000);
+      } else {
+        setLoading(false);
+        toast.error('Error al momento de actualizar.');
+      }
+    } else {
+      const privacySave = await savePrivacy(dataPrivacy);
       if (privacySave.error === false) {
         setLoading(false);
         toast.success('Se guardo exitosamente el Aviso de Privacidad');
@@ -68,19 +78,6 @@ export const PrivacyFormContainer: FC<PrivacyForm> = ({ id, edit }: PrivacyForm)
         setLoading(false);
         toast.error('Error al momento de guardar.');
       }
-    }
-    */
-
-    const privacySave = await savePrivacy(dataPrivacy);
-    if (privacySave.error === false) {
-      setLoading(false);
-      toast.success('Se guardo exitosamente el Aviso de Privacidad');
-      setTimeout(() => {
-        router.push('/app/user/Privacy');
-      }, 1000);
-    } else {
-      setLoading(false);
-      toast.error('Error al momento de guardar.');
     }
   };
 
@@ -103,7 +100,7 @@ export const PrivacyFormContainer: FC<PrivacyForm> = ({ id, edit }: PrivacyForm)
       </Row>
       <ReactQuill theme="snow" value={contentPrivacy} onChange={handleChangeForm} placeholder="Escribe la próxima versión de Aviso de Privacidad." />
       <NavBar>
-        <Button title={'Guardar'} action={() => handleSave(contentPrivacy)} btnType={'principal'} />
+        <Button title={updateTerms ? 'Actualizar información' : 'Guardar'} action={() => handleSave(contentPrivacy)} btnType={'principal'} />
         <Button title={'Cancelar'} action={() => handleCancel()} btnType={'principal'} />
       </NavBar>
     </>

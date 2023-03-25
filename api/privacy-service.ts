@@ -64,25 +64,27 @@ export const getPrivacy = async (idPrivacy: PrivacyOneProps) => {
   }
 };
 
-export const updatePrivacy = async (idPrivacy: PrivacyOneProps, data: any) => {
+export const updatePrivacy = async (idPrivacy: any, data: any) => {
   try {
     const endpoint = `${API_URL}/privacy/${idPrivacy}`;
 
+    console.log('la url es ', endpoint);
+
     const params = {
       data,
-      route: endpoint,
+      url: endpoint,
     };
 
-    const response = await servicesPut(idPrivacy as unknown as string, params);
+    const response = await servicesPut(params);
 
     if (response.ok) {
       return await response.json();
     }
     const errorResponse = await response.text();
-    console.log('ERROR updatePrivacy()', errorResponse);
+    console.log('ERROR updatePrivacy Service()', errorResponse);
     return handleErrorResponse(errorResponse);
   } catch (error) {
-    console.log('CATCH updatePrivacy()', error);
+    console.log('CATCH updatePrivacy Service()', error);
     return error;
   }
 };
