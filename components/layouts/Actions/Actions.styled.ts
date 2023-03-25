@@ -11,7 +11,7 @@ export const Menu = styled.div`
 `;
 
 export const Logout = styled.div`
-  margin-top: 300px;
+  margin-top: 50px;
   display: table;
   width: 100%;
   height: 100%;

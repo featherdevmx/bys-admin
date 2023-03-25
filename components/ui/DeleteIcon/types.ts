@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export interface EditIconProps {
+export interface DeleteIconProps {
   fill: any;
   height: any;
   width: any;

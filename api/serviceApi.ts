@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ApiPostProps } from './types';
+import { ApiPostProps, ApiUpdateProps } from './types';
 
 const API_URL = process.env.REACT_APP_BASE_URL;
 
@@ -74,7 +74,8 @@ export const servicesGet = async (url: string) => {
   return response;
 };
 
-export const servicesPut = async (url: string, data: any) => {
+export const servicesPut = async (params: ApiUpdateProps) => {
+  const { url, data } = params;
   const options: any = {
     cache: 'no-cache',
     headers: headers(),
