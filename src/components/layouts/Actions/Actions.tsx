@@ -71,11 +71,6 @@ export const Actions: FC = () => {
     router.push('/');
   };
 
-  // const handleClarity = () => {
-  //   window.clarity('consent');
-  //   window.clarity('identify', 'ABC');
-  // };
-
   return (
     <MenuActions>
       <Text color="black" h3>
@@ -91,9 +86,6 @@ export const Actions: FC = () => {
           </>
         ))}
       </Menu>
-      {/* <Menu>
-        <MenuLink type={'btn'} title={'Probar Clarity'} action={() => handleClarity()} />
-      </Menu> */}
       <Logout>
         <MenuLink type={'btn'} title={'Cerrar Sesión'} action={() => handleLogout()} />
       </Logout>
