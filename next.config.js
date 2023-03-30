@@ -10,6 +10,7 @@ const nextConfig = {
   },
   env: {
     REACT_APP_BASE_URL: process.env.REACT_APP_BASE_URL,
+    NEXT_APP_CLARITY_KEY: process.env.NEXT_APP_CLARITY_KEY,
   },
   async rewrites() {
     return [
