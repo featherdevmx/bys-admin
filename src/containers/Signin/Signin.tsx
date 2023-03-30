@@ -66,6 +66,10 @@ export const SigninContainer: FC = () => {
 
     setUsersData([...UsersData, newUser]);
 
+    // Clarity
+    window.clarity('consent');
+    window.clarity('identify', `${user.firstName} ${user.lastName}`);
+
     toast.success('Bienvenido a ByS!');
     localStorage.setItem('bysAuthToken', token);
     router.push('/user/Start');
