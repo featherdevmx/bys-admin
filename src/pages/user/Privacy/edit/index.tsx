@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { Layout } from '../../../../../components/layouts';
-import { PrivacyFormContainer } from '../../../../../containers/PrivacyForm';
+import { Layout } from '../../../../components/layouts';
+import { PrivacyFormContainer } from '../../../../containers/PrivacyForm';
 
 const EditPrivacy: NextPage = () => {
   const router = useRouter();

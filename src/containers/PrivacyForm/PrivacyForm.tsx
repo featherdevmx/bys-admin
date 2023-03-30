@@ -60,7 +60,7 @@ export const PrivacyFormContainer: FC<PrivacyForm> = ({ id, edit }: PrivacyForm)
         setLoading(false);
         toast.success('Se actualizo exitosamente el Aviso de Privacidad');
         setTimeout(() => {
-          router.push('/app/user/Privacy');
+          router.push('//user/Privacy');
         }, 1000);
       } else {
         setLoading(false);
@@ -72,7 +72,7 @@ export const PrivacyFormContainer: FC<PrivacyForm> = ({ id, edit }: PrivacyForm)
         setLoading(false);
         toast.success('Se guardo exitosamente el Aviso de Privacidad');
         setTimeout(() => {
-          router.push('/app/user/Privacy');
+          router.push('//user/Privacy');
         }, 1000);
       } else {
         setLoading(false);
@@ -82,7 +82,7 @@ export const PrivacyFormContainer: FC<PrivacyForm> = ({ id, edit }: PrivacyForm)
   };
 
   const handleCancel = () => {
-    router.push('/app/user/Privacy');
+    router.push('//user/Privacy');
   };
 
   const handleChangeTitle = (event: React.FormEvent<HTMLInputElement>) => {

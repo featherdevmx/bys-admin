@@ -12,7 +12,7 @@ export const NavBar: FC<NavBarProps> = ({ title = 'ByS', showIconMenu = false, c
   return (
     <NavComponent>
       {showIconMenu === true && <Burger changeIconMenu={changeIconMenu} setChangeIconMenu={setChangeIconMenu} />}
-      <Image src={logo} alt="ByS" width={240} height={60} style={{ marginRight: 20 }} />
+      <Image src={logo} priority={true} alt="ByS" width={240} height={60} style={{ marginRight: 20 }} />
       <Text color="white" h3>{`:: ${title}`}</Text>
       <Spacer css={{ flex: 1 }} />
     </NavComponent>

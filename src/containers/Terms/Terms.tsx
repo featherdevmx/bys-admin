@@ -73,7 +73,7 @@ export const TermsContainer: FC = () => {
   };
 
   const goToNewVersion = () => {
-    router.push('/app/user/Terms/new');
+    router.push('//user/Terms/new');
   };
 
   return (

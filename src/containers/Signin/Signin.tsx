@@ -7,7 +7,7 @@ import { ErrorOutline } from '@mui/icons-material';
 import React, { useMemo, useState, FC } from 'react';
 import { Button, Input, Loading, Spacer, Text, useInput } from '@nextui-org/react';
 
-import { Row } from './Signin.styled';
+import { Row, FormContainer } from './Signin.styled';
 import { getUserInfo, login } from '../../api';
 import { ApiPostData } from '../../api/types';
 import { useInfoUser } from '../../hooks/useInfoUser';
@@ -68,7 +68,7 @@ export const SigninContainer: FC = () => {
 
     toast.success('Bienvenido a ByS!');
     localStorage.setItem('bysAuthToken', token);
-    router.push('/app/user/Start');
+    router.push('/user/Start');
   };
 
   const validateEmail = (checkValue: any) => checkValue.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i);
@@ -89,57 +89,59 @@ export const SigninContainer: FC = () => {
   return (
     <div className={'form_signin'}>
       <Toaster position="top-center" reverseOrder={true} />
-      <form onSubmit={formik.handleSubmit}>
-        <Text color="black" h2>
-          Iniciar Sesión
-        </Text>
-        {error && <Chip label={errorMessage} color="error" icon={<ErrorOutline />} className="fadein" />}
-        <Spacer y={1.5} />
-        <Row>
-          <Input
-            required
-            {...bindings}
-            clearable
-            shadow={false}
-            bordered
-            onClearClick={reset}
-            status={helper.color as any}
-            color={helper.color as any}
-            helperColor={helper.color as any}
-            helperText={helper.text}
-            type="email"
-            label="Email"
-            name="email"
-            placeholder="Correo Electrónico"
-            size="lg"
-            value={formik.values.email}
-            onChange={event => formik.handleChange(event)}
-          />
-        </Row>
-        <Spacer y={2.5} />
-        <Row>
-          <Input
-            required
-            bordered
-            type="password"
-            label="Contraseña"
-            name="password"
-            placeholder="Contraseña"
-            size="lg"
-            value={formik.values.password}
-            onChange={event => formik.handleChange(event)}
-          />
-        </Row>
-        <Spacer y={2.5} />
-        <Row>
-          {loading === false && (
-            <Button type="submit" color="gradient">
-              Iniciar Sesión
-            </Button>
-          )}
-          {loading === true && <Loading />}
-        </Row>
-      </form>
+      <FormContainer>
+        <form onSubmit={formik.handleSubmit}>
+          <Text color="black" h2>
+            Iniciar Sesión
+          </Text>
+          {error && <Chip label={errorMessage} color="error" icon={<ErrorOutline />} className="fadein" />}
+          <Spacer y={1.5} />
+          <Row>
+            <Input
+              required
+              {...bindings}
+              clearable
+              shadow={false}
+              bordered
+              onClearClick={reset}
+              status={helper.color as any}
+              color={helper.color as any}
+              helperColor={helper.color as any}
+              helperText={helper.text}
+              type="email"
+              label="Email"
+              name="email"
+              placeholder="Correo Electrónico"
+              size="lg"
+              value={formik.values.email}
+              onChange={event => formik.handleChange(event)}
+            />
+          </Row>
+          <Spacer y={2.5} />
+          <Row>
+            <Input
+              required
+              bordered
+              type="password"
+              label="Contraseña"
+              name="password"
+              placeholder="Contraseña"
+              size="lg"
+              value={formik.values.password}
+              onChange={event => formik.handleChange(event)}
+            />
+          </Row>
+          <Spacer y={2.5} />
+          <Row>
+            {loading === false && (
+              <Button type="submit" color="gradient">
+                Iniciar Sesión
+              </Button>
+            )}
+            {loading === true && <Loading />}
+          </Row>
+        </form>
+      </FormContainer>
     </div>
   );
 };

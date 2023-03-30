@@ -43,16 +43,16 @@ export const PrivacyContainer: FC = () => {
 
     switch (action) {
       case 'edit':
-        routeTo = '/app/user/Privacy/edit/';
+        routeTo = '//user/Privacy/edit/';
         break;
       case 'view':
-        routeTo = '/app/user/Privacy/view/';
+        routeTo = '//user/Privacy/view/';
         break;
       case 'delete':
-        routeTo = '/app/user/Privacy/delete/';
+        routeTo = '//user/Privacy/delete/';
         break;
       default:
-        routeTo = '/app/user/Privacy/view/';
+        routeTo = '//user/Privacy/view/';
         break;
     }
 
@@ -99,7 +99,7 @@ export const PrivacyContainer: FC = () => {
   };
 
   const goToNewVersion = () => {
-    router.push('/app/user/Privacy/new');
+    router.push('//user/Privacy/new');
   };
 
   return (

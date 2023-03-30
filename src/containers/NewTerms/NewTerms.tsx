@@ -37,7 +37,7 @@ export const NewTermsContainer: FC = () => {
       setLoading(false);
       toast.success('Se guardo exitosamente los Términos y Condiciones');
       setTimeout(() => {
-        router.push('/app/user/Terms');
+        router.push('//user/Terms');
       }, 1000);
     } else {
       setLoading(false);
@@ -46,7 +46,7 @@ export const NewTermsContainer: FC = () => {
   };
 
   const handleCancel = () => {
-    router.push('/app/user/Terms');
+    router.push('//user/Terms');
   };
 
   const handleChangeTitle = (event: React.FormEvent<HTMLInputElement>) => {

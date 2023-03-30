@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { NextPage } from 'next';
-import { Layout } from '../../../../components/layouts';
+import { Layout } from '../../../components/layouts';
 
 const User: NextPage = () => {
   const [showIconMenu] = useState<boolean>(true);
