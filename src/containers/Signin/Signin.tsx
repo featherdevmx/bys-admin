@@ -96,8 +96,10 @@ export const SigninContainer: FC = () => {
       <Toaster position="top-center" reverseOrder={true} />
       <FormContainer>
         <div>
-          <h3>Mide {keyClarity?.length}</h3>
-          <h3>Leer: {keyClarity}</h3>
+          <h5>Mide {keyClarity?.length}</h5>
+          <h5>Var: {keyClarity}</h5>
+          <h5>Url: {process.env.REACT_APP_BASE_URL}</h5>
+          <h5>Key: {process.env.REACT_APP_CLARITY_KEY}</h5>
         </div>
         <form onSubmit={formik.handleSubmit}>
           <Text color="black" h2>
