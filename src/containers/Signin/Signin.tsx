@@ -19,7 +19,7 @@ export const SigninContainer: FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
   const { UsersData, setUsersData } = useInfoUser();
-  const keyClarity = process.env.NEXT_APP_CLARITY_KEY;
+  const keyClarity = process.env.REACT_APP_CLARITY_KEY;
 
   const formik = useFormik({
     initialValues: { email: '', password: '' },
@@ -96,7 +96,8 @@ export const SigninContainer: FC = () => {
       <Toaster position="top-center" reverseOrder={true} />
       <FormContainer>
         <div>
-          <h1>KeyMX: {keyClarity}</h1>
+          <h3>Mide {keyClarity?.length}</h3>
+          <h3>Leer: {keyClarity}</h3>
         </div>
         <form onSubmit={formik.handleSubmit}>
           <Text color="black" h2>
