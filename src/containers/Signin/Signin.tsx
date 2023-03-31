@@ -19,6 +19,7 @@ export const SigninContainer: FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
   const { UsersData, setUsersData } = useInfoUser();
+  const keyClarity = process.env.NEXT_APP_CLARITY_KEY;
 
   const formik = useFormik({
     initialValues: { email: '', password: '' },
@@ -94,6 +95,9 @@ export const SigninContainer: FC = () => {
     <div className={'form_signin'}>
       <Toaster position="top-center" reverseOrder={true} />
       <FormContainer>
+        <div>
+          <h1>Key: {keyClarity}</h1>
+        </div>
         <form onSubmit={formik.handleSubmit}>
           <Text color="black" h2>
             Iniciar Sesión
