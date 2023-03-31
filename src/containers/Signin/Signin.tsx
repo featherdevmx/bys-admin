@@ -96,7 +96,7 @@ export const SigninContainer: FC = () => {
       <Toaster position="top-center" reverseOrder={true} />
       <FormContainer>
         <div>
-          <h1>Key: {keyClarity}</h1>
+          <h1>KeyMX: {keyClarity}</h1>
         </div>
         <form onSubmit={formik.handleSubmit}>
           <Text color="black" h2>
