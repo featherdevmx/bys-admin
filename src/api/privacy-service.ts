@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { PrivacyOneProps } from '../containers/PrivacyForm/types';
+import { EditorOneProps } from '../containers/EditorForm/types';
 import { servicesGet, handleErrorResponse, servicesPost, servicesPut } from './serviceApi';
 
 const API_URL = process.env.REACT_APP_BASE_URL;
@@ -46,7 +46,7 @@ export const savePrivacy = async (data: any) => {
   }
 };
 
-export const getPrivacy = async (idPrivacy: PrivacyOneProps) => {
+export const getPrivacy = async (idPrivacy: EditorOneProps) => {
   try {
     const endpoint = `${API_URL}/privacy/${idPrivacy}`;
     const response = await servicesGet(endpoint);

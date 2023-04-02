@@ -13,14 +13,14 @@ import { ApiPostData } from '../../api/types';
 import { useInfoUser } from '../../hooks/useInfoUser';
 
 export const SigninContainer: FC = () => {
+  const showClarity = false;
   const router = useRouter();
   const { value, reset, bindings } = useInput('');
+  const { UsersData, setUsersData } = useInfoUser();
   const [error, setError] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState<string>('');
-  const { UsersData, setUsersData } = useInfoUser();
   const keyClarity = process.env.REACT_APP_CLARITY_KEY;
-  const showClarity: boolean = false;
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
   const formik = useFormik({
     initialValues: { email: '', password: '' },

@@ -27,7 +27,7 @@ export const PrivacyContainer: FC = () => {
   useEffect(() => {
     setLoading(true);
     const fetchData = async () => {
-      // Obtener todos los términos y condiciones
+      // Obtener todos los Avisos de Privacidad
       const termsResponse = await getPrivacies();
 
       if (!termsResponse.error) {
@@ -43,20 +43,19 @@ export const PrivacyContainer: FC = () => {
 
     switch (action) {
       case 'edit':
-        routeTo = '//user/Privacy/edit/';
+        routeTo = '/user/Privacy/edit/';
         break;
       case 'view':
-        routeTo = '//user/Privacy/view/';
+        routeTo = '/user/Privacy/view/';
         break;
       case 'delete':
-        routeTo = '//user/Privacy/delete/';
+        routeTo = '/user/Privacy/delete/';
         break;
       default:
-        routeTo = '//user/Privacy/view/';
+        routeTo = '/user/Privacy/view/';
         break;
     }
 
-    console.log(`Ire a ${routeTo}`);
     router.push({ pathname: routeTo, query: { id } }, routeTo);
   };
 
@@ -99,7 +98,7 @@ export const PrivacyContainer: FC = () => {
   };
 
   const goToNewVersion = () => {
-    router.push('//user/Privacy/new');
+    router.push('/user/Privacy/new');
   };
 
   return (

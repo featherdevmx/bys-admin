@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import type { NextPage } from 'next';
 import { Layout } from '../../../components/layouts';
-import { PrivacyFormContainer } from '../../../containers/PrivacyForm';
+import { EditorFormContainer } from '../../../containers/EditorForm';
 
 const NewPrivacy: NextPage = () => {
   const [showIconMenu] = useState<boolean>(true);
-  const [title] = useState<string>('Crear nueva versión');
+  const [title] = useState<string>('Aviso de Privacidad');
   const [changeIconMenu, setChangeIconMenu] = useState<boolean>(false);
   return (
     <Layout headTitle={title} showIconMenu={showIconMenu} changeIconMenu={changeIconMenu} setChangeIconMenu={setChangeIconMenu}>
-      <h1>{title}</h1>
-      <PrivacyFormContainer edit={false} id={''} />
+      <h3>{'Crear nueva versión'}</h3>
+      <EditorFormContainer edit={false} id={''} app={'privacy'} />
     </Layout>
   );
 };
