@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic';
 import { Button } from '../../components/ui/Button/Button';
 import { NavBar, Row, InputText } from './NewTerms.styled';
 import 'react-quill/dist/quill.snow.css';
-import { saveTerms } from '../../api/terms-service';
+import { saveTerm } from '../../api/terms-service';
 
 import { useInfoUser } from '../../hooks/useInfoUser';
 
@@ -32,12 +32,12 @@ export const NewTermsContainer: FC = () => {
       user_id: UsersData[0]?.id,
     };
 
-    const termsSave = await saveTerms(dataTerms);
+    const termsSave = await saveTerm(dataTerms);
     if (termsSave.error === false) {
       setLoading(false);
       toast.success('Se guardo exitosamente los Términos y Condiciones');
       setTimeout(() => {
-        router.push('//user/Terms');
+        router.push('/user/Terms');
       }, 1000);
     } else {
       setLoading(false);
@@ -46,7 +46,7 @@ export const NewTermsContainer: FC = () => {
   };
 
   const handleCancel = () => {
-    router.push('//user/Terms');
+    router.push('/user/Terms');
   };
 
   const handleChangeTitle = (event: React.FormEvent<HTMLInputElement>) => {

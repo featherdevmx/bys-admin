@@ -10,3 +10,16 @@ export interface TermItem {
 export interface TermsProps {
   data: Array<TermItem>;
 }
+
+export interface TermsUserItem {
+  info: {
+    id: string;
+    name: string;
+    content: string;
+    status: number | string;
+    firstName: string;
+    lastName: string;
+    created_at: string;
+    updated_at: string;
+  };
+}

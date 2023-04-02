@@ -8,6 +8,7 @@ import { EditIcon } from '../../components/ui/EditIcon';
 import { DeleteIcon } from '../../components/ui/DeleteIcon';
 
 import { getTerms } from '../../api/terms-service';
+import { TermsUserItem } from './types';
 
 export const TermsContainer: FC = () => {
   const [lastVersion] = useState<string>('12-12-2022 20:09:23');
@@ -38,25 +39,50 @@ export const TermsContainer: FC = () => {
     fetchData();
   }, []);
 
-  const RenderActions = () => (
-    <Row justify="center" align="center">
-      <Col css={{ d: 'flex' }}>
-        <IconButton onClick={() => console.log('View TyC')}>
-          <EyeIcon fill="#979797" height={undefined} width={undefined} />
-        </IconButton>
-      </Col>
-      <Col css={{ d: 'flex' }}>
-        <IconButton onClick={() => console.log('Edit TyC')}>
-          <EditIcon fill="#979797" height={undefined} width={undefined} />
-        </IconButton>
-      </Col>
-      <Col css={{ d: 'flex' }}>
-        <IconButton onClick={() => console.log('Delete TyC')}>
-          <DeleteIcon fill="#979797" height={undefined} width={undefined} />
-        </IconButton>
-      </Col>
-    </Row>
-  );
+  const handleAction = (id: string, action: string) => {
+    let routeTo;
+
+    switch (action) {
+      case 'edit':
+        routeTo = '/user/Terms/edit/';
+        break;
+      case 'view':
+        routeTo = '/user/Terms/view/';
+        break;
+      case 'delete':
+        routeTo = '/user/Terms/delete/';
+        break;
+      default:
+        routeTo = '/user/Terms/view/';
+        break;
+    }
+
+    router.push({ pathname: routeTo, query: { id } }, routeTo);
+  };
+
+  const RenderActions = (user: TermsUserItem): any => {
+    const { id } = user.info;
+
+    return (
+      <Row justify="center" align="center">
+        <Col css={{ d: 'flex' }}>
+          <IconButton onClick={() => handleAction(id, 'view')}>
+            <EyeIcon fill="#979797" height={20} width={20} />
+          </IconButton>
+        </Col>
+        <Col css={{ d: 'flex' }}>
+          <IconButton onClick={() => handleAction(id, 'edit')}>
+            <EditIcon fill="#979797" height={20} width={20} />
+          </IconButton>
+        </Col>
+        <Col css={{ d: 'flex' }}>
+          <IconButton onClick={() => handleAction(id, 'delete')}>
+            <DeleteIcon fill="#979797" height={20} width={20} />
+          </IconButton>
+        </Col>
+      </Row>
+    );
+  };
 
   const RenderCell = (user: any, columnKey: any) => {
     const cellValue = user[columnKey];
@@ -64,7 +90,7 @@ export const TermsContainer: FC = () => {
       case 'status':
         return <StyledBadge type={user.status}>{cellValue === 0 ? 'Activo' : 'Inactivo'}</StyledBadge>;
       case 'actions':
-        return <RenderActions />;
+        return <RenderActions info={user} />;
       case 'author':
         return `${user.firstName} ${user.lastName}`;
       default:
@@ -73,7 +99,7 @@ export const TermsContainer: FC = () => {
   };
 
   const goToNewVersion = () => {
-    router.push('//user/Terms/new');
+    router.push('/user/Terms/new');
   };
 
   return (
