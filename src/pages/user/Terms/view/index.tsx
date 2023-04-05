@@ -6,7 +6,13 @@ import { NavBlack } from '@/components/ui/NavBlack/NavBlack';
 import { EditorOneProps } from '@/containers/EditorForm/types';
 import { getPrivacy } from '@/api/privacy-service';
 import { Loading } from '@nextui-org/react';
-import { TermsOneItemProps } from './types';
+
+export interface TermsOneItemProps {
+  name: string;
+  created_at: string;
+  status: boolean | number;
+  content: string;
+}
 
 const TermsView: NextPage = () => {
   const router = useRouter();

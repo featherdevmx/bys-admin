@@ -6,7 +6,13 @@ import { NavBlack } from '@/components/ui/NavBlack/NavBlack';
 import { EditorOneProps } from '@/containers/EditorForm/types';
 import { getPrivacy } from '@/api/privacy-service';
 import { Loading } from '@nextui-org/react';
-import { PrivacyOneItemProps } from './types';
+
+export interface PrivacyOneItemProps {
+  name: string;
+  created_at: string;
+  status: boolean | number;
+  content: string;
+}
 
 const PrivacyView: NextPage = () => {
   const router = useRouter();
