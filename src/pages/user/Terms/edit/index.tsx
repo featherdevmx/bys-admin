@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { Layout } from '../../../../components/layouts';
-import { EditorFormContainer } from '../../../../containers/EditorForm';
+import { Layout } from '@/components/layouts';
+import { EditorFormContainer } from '@/containers/EditorForm';
 
 const EditTerms: NextPage = () => {
   const router = useRouter();

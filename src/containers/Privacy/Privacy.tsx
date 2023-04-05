@@ -19,7 +19,7 @@ export const PrivacyContainer: FC = () => {
   const columns = [
     { name: 'Fecha', uid: 'created_at' },
     { name: 'Nombre', uid: 'name' },
-    { name: 'Creado por', uid: 'author' },
+    { name: 'Autor', uid: 'author' },
     { name: 'Status', uid: 'status' },
     { name: 'Acciones', uid: 'actions' },
   ];

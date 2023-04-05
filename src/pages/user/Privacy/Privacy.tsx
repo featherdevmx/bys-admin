@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import type { NextPage } from 'next';
-import { Layout } from '../../../components/layouts';
-import { PrivacyContainer } from '../../../containers/Privacy/Privacy';
+import { Layout } from '@/components/layouts';
+import { PrivacyContainer } from '@/containers/Privacy/Privacy';
 
 const Privacy: NextPage = () => {
   const [showIconMenu] = useState<boolean>(true);

@@ -1,10 +1,9 @@
 import React, { FC } from 'react';
 import { useRouter } from 'next/router';
 import { Text } from '@nextui-org/react';
+import { useInfoUser } from '@/hooks/useInfoUser';
 import { MenuLink } from '../../ui/MenuLink';
 import { MenuActions, Menu, Logout } from './Actions.styled';
-
-import { useInfoUser } from '../../../hooks/useInfoUser';
 
 export const Actions: FC = () => {
   const router = useRouter();
