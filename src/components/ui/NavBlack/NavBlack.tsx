@@ -1,10 +1,10 @@
-const NavBlack = () => {
-  return (
-    <NavBar>
-      <GoBackButton data-testid={dataTestIdBtnGoBack} onClick={handleGoBackButton} />
-      {t('load-images.steps.button-go-back')}
-    </NavBar>
-  );
-};
+import { FC } from 'react';
+import { GoBackButton, NavBar } from './NavBlack.styled';
+import { NavBlackProps } from './types';
 
-export default NavBlack;
+export const NavBlack: FC<NavBlackProps> = ({ action, title }) => (
+  <NavBar>
+    <GoBackButton onClick={() => action()} />
+    {title}
+  </NavBar>
+);

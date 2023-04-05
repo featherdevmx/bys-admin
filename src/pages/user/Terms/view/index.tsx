@@ -6,18 +6,18 @@ import { NavBlack } from '@/components/ui/NavBlack/NavBlack';
 import { EditorOneProps } from '@/containers/EditorForm/types';
 import { getPrivacy } from '@/api/privacy-service';
 import { Loading } from '@nextui-org/react';
-import { PrivacyOneItemProps } from './types';
+import { TermsOneItemProps } from './types';
 
-const PrivacyView: NextPage = () => {
+const TermsView: NextPage = () => {
   const router = useRouter();
   const { id } = router.query;
   const [loading, setLoading] = useState<boolean>(false);
   const [showIconMenu] = useState<boolean>(true);
-  const [title] = useState<string>('Aviso de Privacidad');
+  const [title] = useState<string>('Términos y Condiciones');
   const [changeIconMenu, setChangeIconMenu] = useState<boolean>(false);
-  const [content, setContent] = useState<PrivacyOneItemProps>();
+  const [content, setContent] = useState<TermsOneItemProps>();
 
-  const handleGetPrivacy = useCallback(async () => {
+  const handleGetTerm = useCallback(async () => {
     const privacySaved = await getPrivacy(id as unknown as EditorOneProps);
     if (privacySaved) {
       setTimeout(() => {
@@ -28,17 +28,17 @@ const PrivacyView: NextPage = () => {
   }, [id]);
 
   const handleGoBack = useCallback(() => {
-    router.push('/user/Privacy');
+    router.push('/user/Terms');
   }, [router]);
 
   useEffect(() => {
     if (!id) {
-      router.push('/user/Privacy');
+      router.push('/user/Terms');
     } else {
       setLoading(true);
-      handleGetPrivacy();
+      handleGetTerm();
     }
-  }, [handleGetPrivacy, id, router]);
+  }, [handleGetTerm, id, router]);
 
   return (
     <Layout headTitle={title} showIconMenu={showIconMenu} changeIconMenu={changeIconMenu} setChangeIconMenu={setChangeIconMenu}>
@@ -56,4 +56,4 @@ const PrivacyView: NextPage = () => {
   );
 };
 
-export default PrivacyView;
+export default TermsView;

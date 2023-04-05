@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import type { NextPage } from 'next';
-import { Layout } from '../../../components/layouts';
-import { NewTermsContainer } from '../../../containers/NewTerms';
+import { Layout } from '@/components/layouts';
+import { NewTermsContainer } from '@/containers/NewTerms';
 
 const NewTerms: NextPage = () => {
   const [showIconMenu] = useState<boolean>(true);
