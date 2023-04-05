@@ -5,7 +5,16 @@
     "node": true,
     "jest": true
   },
-  "extends": ["plugin:react/recommended", "airbnb-base", "plugin:@typescript-eslint/recommended", "plugin:import/errors", "plugin:import/warnings", "plugin:import/typescript", "prettier"],
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb-base",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript",
+    "prettier",
+    "next/core-web-vitals"
+  ],
   "settings": {
     "react": { "version": "detect" },
     "import/resolver": {
