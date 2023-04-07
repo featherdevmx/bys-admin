@@ -28,6 +28,12 @@ npm run check-types ||
     false;
 )
 
+yarn coverage || 
+(
+    echo 'Hello!!'
+    false; 
+
+)
+
 # If everything passes... Now we can commit
 echo '✅✅✅✅ You win this time... I am committing this now. ✅✅✅✅'
-
