@@ -4,14 +4,13 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { Loading } from '@nextui-org/react';
 import toast, { Toaster } from 'react-hot-toast';
-import { Button } from '../../components/ui/Button/Button';
+import { Button } from '@/components/ui/Button/Button';
+import { savePrivacy, getPrivacy, updatePrivacy } from '@/api/privacy-service';
+import { saveTerm, getTerm, updateTerm } from '@/api/terms-service';
+import { useInfoUser } from '@/hooks/useInfoUser';
 import { NavBar, Row, InputText } from './EditorForm.styled';
 import { EditorFormProps, EditorOneProps } from './types';
 import 'react-quill/dist/quill.snow.css';
-import { savePrivacy, getPrivacy, updatePrivacy } from '../../api/privacy-service';
-import { saveTerm, getTerm, updateTerm } from '../../api/terms-service';
-
-import { useInfoUser } from '../../hooks/useInfoUser';
 
 const ReactQuill = dynamic(import('react-quill'), { ssr: false });
 

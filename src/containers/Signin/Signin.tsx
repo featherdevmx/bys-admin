@@ -7,10 +7,10 @@ import { ErrorOutline } from '@mui/icons-material';
 import React, { useMemo, useState, FC } from 'react';
 import { Button, Input, Loading, Spacer, Text, useInput } from '@nextui-org/react';
 
+import { getUserInfo, login } from '@/api';
+import { ApiPostData } from '@/api/types';
+import { useInfoUser } from '@/hooks/useInfoUser';
 import { Row, FormContainer } from './Signin.styled';
-import { getUserInfo, login } from '../../api';
-import { ApiPostData } from '../../api/types';
-import { useInfoUser } from '../../hooks/useInfoUser';
 
 export const SigninContainer: FC = () => {
   const showClarity = false;
