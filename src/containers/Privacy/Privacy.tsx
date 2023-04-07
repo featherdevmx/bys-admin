@@ -2,12 +2,12 @@
 import React, { useState, useEffect, FC } from 'react';
 import { Button, Text, Table, Row, Col, Loading } from '@nextui-org/react';
 import { useRouter } from 'next/router';
+import { EyeIcon } from '@/components/ui/EyeIcon';
+import { EditIcon } from '@/components/ui/EditIcon';
+import { DeleteIcon } from '@/components/ui/DeleteIcon';
+import { getPrivacies } from '@/api/privacy-service';
 import { Header, Body, Main, StyledBadge, IconButton } from './Privacy.styled';
-import { EyeIcon } from '../../components/ui/EyeIcon';
-import { EditIcon } from '../../components/ui/EditIcon';
-import { DeleteIcon } from '../../components/ui/DeleteIcon';
 import { PrivacyUserItem } from './types';
-import { getPrivacies } from '../../api/privacy-service';
 
 export const PrivacyContainer: FC = () => {
   const [lastVersion] = useState<string>('03-23-2023 17:58:23');

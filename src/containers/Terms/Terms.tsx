@@ -2,12 +2,12 @@
 import React, { useState, useEffect, FC } from 'react';
 import { Button, Text, Table, Row, Col, Loading } from '@nextui-org/react';
 import { useRouter } from 'next/router';
+import { EyeIcon } from '@/components/ui/EyeIcon';
+import { EditIcon } from '@/components/ui/EditIcon';
+import { DeleteIcon } from '@/components/ui/DeleteIcon';
+import { getTerms } from '@/api/terms-service';
 import { Header, Body, Main, StyledBadge, IconButton } from './Terms.styled';
-import { EyeIcon } from '../../components/ui/EyeIcon';
-import { EditIcon } from '../../components/ui/EditIcon';
-import { DeleteIcon } from '../../components/ui/DeleteIcon';
 
-import { getTerms } from '../../api/terms-service';
 import { TermsUserItem } from './types';
 
 export const TermsContainer: FC = () => {

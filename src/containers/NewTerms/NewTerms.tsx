@@ -3,12 +3,11 @@ import { useRouter } from 'next/router';
 import { Loading } from '@nextui-org/react';
 import toast, { Toaster } from 'react-hot-toast';
 import dynamic from 'next/dynamic';
-import { Button } from '../../components/ui/Button/Button';
+import { Button } from '@/components/ui/Button/Button';
+import { saveTerm } from '@/api/terms-service';
+import { useInfoUser } from '@/hooks/useInfoUser';
 import { NavBar, Row, InputText } from './NewTerms.styled';
 import 'react-quill/dist/quill.snow.css';
-import { saveTerm } from '../../api/terms-service';
-
-import { useInfoUser } from '../../hooks/useInfoUser';
 
 const ReactQuill = dynamic(import('react-quill'), { ssr: false });
 
