@@ -11,13 +11,14 @@ export const GoBackButton = styled(ArrowBackIcon)`
 
 export const NavBar = styled.div`
   top: 0;
-  width: calc(90%);
-  background: '#FFF',
-  height: 64px;
+  width: calc(100%);
+  background: #fecb18;
+  height: 50px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  border: 1.5px solid #e0e3e5;
+  border-radius: 4px;
+  //border: 1.5px solid #e0e3e5;
   font-family: 'Nunito Sans';
   font-style: normal;
   font-weight: 700;
