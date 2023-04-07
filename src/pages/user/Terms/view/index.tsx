@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { Layout } from '@/components/layouts';
 import { NavBlack } from '@/components/ui/NavBlack/NavBlack';
 import { EditorOneProps } from '@/containers/EditorForm/types';
-import { getPrivacy } from '@/api/privacy-service';
+import { getTerm } from '@/api/terms-service';
 import { Loading } from '@nextui-org/react';
 
 export interface TermsOneItemProps {
@@ -24,11 +24,11 @@ const TermsView: NextPage = () => {
   const [content, setContent] = useState<TermsOneItemProps>();
 
   const handleGetTerm = useCallback(async () => {
-    const privacySaved = await getPrivacy(id as unknown as EditorOneProps);
-    if (privacySaved) {
+    const termSaved = await getTerm(id as unknown as EditorOneProps);
+    if (termSaved) {
       setTimeout(() => {
         setLoading(false);
-        setContent(privacySaved);
+        setContent(termSaved);
       }, 1000);
     }
   }, [id]);
