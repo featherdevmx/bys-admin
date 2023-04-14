@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { EditorOneProps } from '../containers/EditorForm/types';
+import { EditorOneProps } from '@/containers/EditorForm/types';
 import { servicesGet, handleErrorResponse, servicesPost, servicesPut } from './serviceApi';
 
 const API_URL = process.env.REACT_APP_BASE_URL;

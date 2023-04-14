@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { NextPage } from 'next';
-import { Layout } from '../components/layouts';
+import { Layout } from '@/components/layouts';
 import Signin from './guest/Signin';
 
 const Home: NextPage = () => {
