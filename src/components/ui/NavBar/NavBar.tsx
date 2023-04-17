@@ -7,7 +7,7 @@ import { NavBarProps } from './types';
 import { NavComponent } from './NavBar.styled';
 
 export const NavBar: FC<NavBarProps> = ({ title = 'ByS', showIconMenu = false, changeIconMenu, setChangeIconMenu }) => {
-  const logo = 'https://www.beneficiosysalud.com/wp-content/uploads/2021/07/bs-logo-blanco-ok-01.svg';
+  const logo = '/logo.svg';
 
   return (
     <NavComponent>

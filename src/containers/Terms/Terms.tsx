@@ -1,21 +1,34 @@
+/* eslint-disable consistent-return */
+/* eslint-disable no-case-declarations */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect, FC } from 'react';
 import { Button, Text, Table, Row, Col, Loading } from '@nextui-org/react';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { isValid, format } from 'date-fns';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
+import { Modal } from '@/components/ui/Modal';
 import { EyeIcon } from '@/components/ui/EyeIcon';
 import { EditIcon } from '@/components/ui/EditIcon';
 import { DeleteIcon } from '@/components/ui/DeleteIcon';
-import { getTerms } from '@/api/terms-service';
-import { Header, Body, Main, StyledBadge, IconButton } from './Terms.styled';
+import { Button as ButtonNav } from '@/components/ui/Button/Button';
+import { getTerms, deleteTerm } from '@/api/terms-service';
+import { Header, Body, Main, StyledBadge, IconButton, NavActions } from './Terms.styled';
 
 import { TermsUserItem } from './types';
 
+const IMG_ADVERTICE = '/advertencia.png';
+
 export const TermsContainer: FC = () => {
-  const [lastVersion] = useState<string>('12-12-2022 20:09:23');
-  const [terms, setTerms] = useState([]);
-  const [showLastVersion] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
+  const [terms, setTerms] = useState([]);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [lastVersion, setLastVersion] = useState<string>('');
+  const [showLastVersion, setShowLastVersion] = useState<boolean>(false);
+  const [contentDelete, setContentDelete] = useState<string>('');
+  const [idDelete, setIdDelete] = useState<string>('');
 
   const columns = [
     { name: 'Fecha', uid: 'created_at' },
@@ -25,58 +38,72 @@ export const TermsContainer: FC = () => {
     { name: 'Acciones', uid: 'actions' },
   ];
 
+  const handleCloseModal = () => {
+    setIsOpen(false);
+  };
+
+  const fetchTerms = async () => {
+    // Obtener todos los términos y condiciones
+    const termsResponse = await getTerms();
+
+    if (!termsResponse.error) {
+      setTerms(termsResponse.data);
+      setLoading(false);
+      const date = new Date(termsResponse.data[0].created_at);
+      if (isValid(date)) {
+        const formattedDate = format(date, 'yyyy-MM-dd HH:mm:ss');
+        setLastVersion(formattedDate);
+      }
+      setShowLastVersion(true);
+    }
+  };
+
   useEffect(() => {
     setLoading(true);
-    const fetchData = async () => {
-      // Obtener todos los términos y condiciones
-      const termsResponse = await getTerms();
-
-      if (!termsResponse.error) {
-        setTerms(termsResponse.data);
-        setLoading(false);
-      }
-    };
-    fetchData();
+    fetchTerms();
   }, []);
 
-  const handleAction = (id: string, action: string) => {
-    let routeTo;
+  const handleAction = (id: string, action: string, name: string) => {
+    if (action !== 'delete') {
+      let routeTo;
 
-    switch (action) {
-      case 'edit':
-        routeTo = '/user/Terms/edit/';
-        break;
-      case 'view':
-        routeTo = '/user/Terms/view/';
-        break;
-      case 'delete':
-        routeTo = '/user/Terms/delete/';
-        break;
-      default:
-        routeTo = '/user/Terms/view/';
-        break;
+      switch (action) {
+        case 'edit':
+          routeTo = '/user/Privacy/edit/';
+          break;
+        case 'view':
+          routeTo = '/user/Privacy/view/';
+          break;
+        default:
+          routeTo = '/user/Privacy/view/';
+          break;
+      }
+
+      router.push({ pathname: routeTo, query: { id } }, routeTo);
+    } else {
+      setIsOpen(true);
+      setContentDelete(name);
+      setIdDelete(id);
     }
-
-    router.push({ pathname: routeTo, query: { id } }, routeTo);
   };
 
   const RenderActions = (user: TermsUserItem): any => {
-    const { id } = user.info;
+    const { id, name } = user.info;
 
     return (
       <Row justify="center" align="center">
         <Col css={{ d: 'flex' }}>
-          <IconButton onClick={() => handleAction(id, 'view')}>
+          <IconButton onClick={() => handleAction(id, 'view', name)}>
             <EyeIcon fill="#979797" height={20} width={20} />
           </IconButton>
         </Col>
         <Col css={{ d: 'flex' }}>
-          <IconButton onClick={() => handleAction(id, 'edit')}>
+          <IconButton onClick={() => handleAction(id, 'edit', name)}>
             <EditIcon fill="#979797" height={20} width={20} />
           </IconButton>
         </Col>
         <Col css={{ d: 'flex' }}>
-          <IconButton onClick={() => handleAction(id, 'delete')}>
+          <IconButton onClick={() => handleAction(id, 'delete', name)}>
             <DeleteIcon fill="#979797" height={20} width={20} />
           </IconButton>
         </Col>
@@ -93,6 +120,13 @@ export const TermsContainer: FC = () => {
         return <RenderActions info={user} />;
       case 'author':
         return `${user.firstName} ${user.lastName}`;
+      case 'created_at':
+        const date = new Date(user.created_at);
+        if (isValid(date)) {
+          const formattedDate = format(date, 'yyyy-MM-dd HH:mm:ss');
+          return formattedDate;
+        }
+        break;
       default:
         return cellValue;
     }
@@ -100,6 +134,24 @@ export const TermsContainer: FC = () => {
 
   const goToNewVersion = () => {
     router.push('/user/Terms/new');
+  };
+
+  const handleDelete = async () => {
+    setLoading(true);
+
+    // Obtener todos los Avisos de Privacidad
+    const privacyDelete = await deleteTerm(idDelete);
+
+    if (!privacyDelete.error) {
+      setIsOpen(false);
+      setLoading(false);
+      fetchTerms();
+      toast.success('¡Términos y Condiciones fue eliminado exitosamente!', { position: toast.POSITION.TOP_CENTER });
+    }
+  };
+
+  const handleDeleteCancel = () => {
+    setIsOpen(false);
   };
 
   return (
@@ -119,6 +171,20 @@ export const TermsContainer: FC = () => {
             Crear Nueva versión
           </Button>
         </Header>
+        <ToastContainer />
+        {isOpen && (
+          <Modal isOpen={isOpen} onClose={handleCloseModal}>
+            <NavActions>
+              <Image src={IMG_ADVERTICE} priority={true} alt="ByS" width={50} height={50} />
+            </NavActions>
+            <h4>¿Está seguro que desea eliminar este aviso de privacidad?</h4>
+            <h3>{contentDelete}</h3>
+            <NavActions>
+              <ButtonNav title={'Eliminar'} action={() => handleDelete()} btnType={'principal'} />
+              <ButtonNav title={'Cancelar'} action={() => handleDeleteCancel()} btnType={'principal'} />
+            </NavActions>
+          </Modal>
+        )}
         <Body>
           <Table
             aria-label="Example table with custom cells"

@@ -70,3 +70,15 @@ export const IconButton = styledNU('button', {
     opacity: '0.6',
   },
 });
+
+export const NavActions = styled.div`
+  gap: 30px;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  margin-top: 30px;
+  min-width: 320px;
+  align-items: center;
+  flex-direction: 'row';
+  justify-content: center;
+`;
