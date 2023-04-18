@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { EditorOneProps } from '@/containers/EditorForm/types';
-import { servicesGet, handleErrorResponse, servicesPost, servicesPut } from './serviceApi';
+import { servicesGet, handleErrorResponse, servicesPost, servicesPut, servicesDelete } from './serviceApi';
 
 const API_URL = process.env.REACT_APP_BASE_URL;
 
@@ -85,6 +85,24 @@ export const updateTerm = async (idTerm: any, data: any) => {
     return handleErrorResponse(errorResponse);
   } catch (error) {
     console.log('CATCH updatePrivacy Service()', error);
+    return error;
+  }
+};
+
+export const deleteTerm = async (idTerm: any) => {
+  try {
+    const endpoint = `${API_URL}/terms/${idTerm}`;
+
+    const response = await servicesDelete(endpoint);
+
+    if (response.ok) {
+      return await response.json();
+    }
+    const errorResponse = await response.text();
+    console.log('ERROR deleteTerms Service()', errorResponse);
+    return handleErrorResponse(errorResponse);
+  } catch (error) {
+    console.log('CATCH deleteTerms Service()', error);
     return error;
   }
 };

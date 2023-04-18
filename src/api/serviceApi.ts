@@ -101,13 +101,12 @@ export const servicesPatch = async (url: string, data: any) => {
   return response;
 };
 
-export const httpDelete = async (url: string, data: any) => {
+export const servicesDelete = async (url: string) => {
   const options: any = {
     cache: 'no-cache',
     headers: headers(),
     method: 'DELETE',
     mode: 'cors',
-    body: data ? JSON.stringify(data) : null,
   };
 
   const response = await fetch(url, options);
