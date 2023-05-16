@@ -9,11 +9,15 @@ export interface ApiPostData {
 }
 
 export interface UserInfo {
-  user: {
-    id: string;
-    firstName: string;
-    lastName: string;
-    email: string;
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+}
+
+export interface TokenPayload {
+  data: {
+    user: UserInfo;
   };
 }
 

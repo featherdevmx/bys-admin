@@ -1,17 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { servicesPost, handleErrorResponse } from './serviceApi';
-import { ApiPostData, UserInfo } from './types';
-
-export interface JwtPayloadLocal {
-  data: {
-    user: {
-      id: string;
-      firstName: string;
-      lastName: string;
-      email: string;
-    };
-  };
-}
+import { ApiPostData, TokenPayload, UserInfo } from './types';
 
 export const login = async (data: ApiPostData) => {
   try {
@@ -37,10 +26,17 @@ export const login = async (data: ApiPostData) => {
   }
 };
 
-export const getUserInfo = (token: string): UserInfo => {
-  // console.log(`token ${token}`);
-  const decodedToken = jwt.decode(token);
-  const { data } = decodedToken as JwtPayloadLocal;
+export const getUserInfo = (token?: string): UserInfo | null => {
+  const tokenToDecode = token ?? localStorage.getItem('bysAuthToken');
+  if (!tokenToDecode) {
+    return null;
+  }
 
-  return data;
+  try {
+    const decodedToken = jwt.decode(tokenToDecode) as TokenPayload;
+    return decodedToken.data.user;
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
 };

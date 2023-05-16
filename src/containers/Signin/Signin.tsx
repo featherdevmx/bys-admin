@@ -57,24 +57,25 @@ export const SigninContainer: FC = () => {
     setLoading(false);
     const { token } = loginResponse.access_token;
     const userInfo = getUserInfo(token);
-    const { user } = userInfo;
 
-    const newUser = {
-      id: user.id,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-    };
+    if (userInfo) {
+      const newUser = {
+        id: userInfo?.id,
+        firstName: userInfo.firstName,
+        lastName: userInfo.lastName,
+        email: userInfo.email,
+      };
 
-    setUsersData([...UsersData, newUser]);
+      setUsersData([...UsersData, newUser]);
 
-    // Clarity
-    window.clarity('consent');
-    window.clarity('identify', `${user.firstName} ${user.lastName}`);
+      // Clarity
+      window.clarity('consent');
+      window.clarity('identify', `${userInfo.firstName} ${userInfo.lastName}`);
 
-    toast.success('Bienvenido a ByS!');
-    localStorage.setItem('bysAuthToken', token);
-    router.push('/user/Start');
+      toast.success('Bienvenido a ByS!');
+      localStorage.setItem('bysAuthToken', token);
+      router.push('/user/Start');
+    }
   };
 
   const validateEmail = (checkValue: any) => checkValue.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i);
