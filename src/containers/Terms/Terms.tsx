@@ -69,13 +69,13 @@ export const TermsContainer: FC = () => {
 
       switch (action) {
         case 'edit':
-          routeTo = '/user/Privacy/edit/';
+          routeTo = '/user/Terms/edit/';
           break;
         case 'view':
-          routeTo = '/user/Privacy/view/';
+          routeTo = '/user/Terms/view/';
           break;
         default:
-          routeTo = '/user/Privacy/view/';
+          routeTo = '/user/Terms/view/';
           break;
       }
 
@@ -139,7 +139,7 @@ export const TermsContainer: FC = () => {
   const handleDelete = async () => {
     setLoading(true);
 
-    // Obtener todos los Avisos de Privacidad
+    // Obtener todos los Términos y Condiciones
     const privacyDelete = await deleteTerm(idDelete);
 
     if (!privacyDelete.error) {
@@ -177,7 +177,7 @@ export const TermsContainer: FC = () => {
             <NavActions>
               <Image src={IMG_ADVERTICE} priority={true} alt="ByS" width={50} height={50} />
             </NavActions>
-            <h4>¿Está seguro que desea eliminar este aviso de privacidad?</h4>
+            <h4>¿Está seguro que desea eliminar este Término y Condición?</h4>
             <h3>{contentDelete}</h3>
             <NavActions>
               <ButtonNav title={'Eliminar'} action={() => handleDelete()} btnType={'principal'} />
