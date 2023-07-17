@@ -1,0 +1,63 @@
+name: Build and Deploy ByS Admin
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  build-and-deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    env:
+      BUCKET: ${{ secrets.AWS_BUCKET }}
+      # React JS
+      # DIST: build
+      # Next JS
+      DIST: out
+      REGION: ${{ secrets.AWS_REGION }}
+      DIST_ID: ${{ secrets.AWS_CLOUD_FRONT }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Define Node 16
+        uses: actions/setup-node@v1
+        with:
+          node-version: '16'
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Install Dependencies
+        run: node --version npm ci --production
+
+      - name: Configure environment for NextJS
+        run: npm install && npm install -g yarn && yarn install --frozen-lockfile
+
+      - name: Create env file
+        run: |
+          touch .env
+          echo REACT_APP_BASE_URL=${{ secrets.REACT_APP_BASE_URL }} >> .env
+          echo REACT_APP_CLARITY_KEY=${{ secrets.REACT_APP_CLARITY_KEY }} >> .env
+
+      - name: Build Static Website
+        run: yarn build
+
+      - name: Deploy to S3
+        run: aws s3 sync ${{ env.DIST }} s3://${{ env.BUCKET }}
+        # find all .html files and remove their extension
+      - name: Change 1 - Proof of Concept
+        run: for file in $(find ./${{ env.DIST }} -name "*.html"); do mv "$file" "${file%%.html}"; done
+      # push(sync) all the html files without extension to S3 and set the content type to text/html by excluding file extensions and chunck folder
+      - name: Change 2 - Proof of Concept
+        run: aws s3 sync --content-type "text/html" --metadata-directive REPLACE ./${{ env.DIST }} s3://${{ env.BUCKET }} --exclude "*.jpg" --exclude "*.png" --exclude "*.jpeg" --exclude "_next/*" --exclude "*.svg"
+      # push(sync) all other kind of files such as images or SVGs
+      - name: Change 3 - Proof of Concept
+        run: aws s3 sync ./${{ env.DIST }} s3://${{ env.BUCKET }} --exclude "*.*" --include "*.jpg" --include "*.png" --include "*.jpeg" --include "*.svg"
+      - name: Deploy to CloudFront and Create Invalidation for Delete Cache
+        run: aws cloudfront create-invalidation --distribution-id ${{ env.DIST_ID }} --paths "/*"
