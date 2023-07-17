@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "types": ["node", "jest"],
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -13,8 +14,11 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true
+    "incremental": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "jest.setup.js"],
+  "exclude": ["node_modules", "__tests__", "out"]
 }
